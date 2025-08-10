@@ -18,6 +18,7 @@ body {
 .App {
   min-height: 100vh;
   overflow-x: hidden;
+  padding-top: 70px; /* Account for fixed navigation */
 }
 
 /* Typography */
@@ -83,12 +84,6 @@ input:focus, textarea:focus, select:focus {
 }
 
 /* Utility classes */
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 2rem;
-}
-
 .text-center {
   text-align: center;
 }
@@ -103,6 +98,10 @@ input:focus, textarea:focus, select:focus {
 
 /* Responsive utilities */
 @media (max-width: 768px) {
+  .App {
+    padding-top: 60px; /* Smaller padding for mobile navigation */
+  }
+  
   h1 {
     font-size: 2rem;
   }
@@ -113,10 +112,6 @@ input:focus, textarea:focus, select:focus {
   
   h3 {
     font-size: 1.25rem;
-  }
-  
-  .container {
-    padding: 0 1rem;
   }
 }
 

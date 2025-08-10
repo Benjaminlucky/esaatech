@@ -35,18 +35,18 @@ const AdditionalServices = () => {
     },
     {
       id: 6,
-      title: 'Data Analytics',
-      icon: '📈',
-      description: 'Advanced data analytics and business intelligence solutions.'
+      title: 'Website Design',
+      icon: '🎨',
+      description: 'Modern, responsive website design and development for businesses of all sizes.'
     }
   ];
 
   return (
-    <section className="additional-services">
-      <div className="additional-container">
+    <section id="additional-services" className="additional-services">
+      <div className="additional-container container">
         <div className="additional-header">
-          <h2>Additional Solutions</h2>
-          <p>Comprehensive services to support your complete digital journey</p>
+          <h2 className="text-secondary">Additional Solutions</h2>
+          <p className="text-body">Comprehensive services to support your complete digital journey</p>
         </div>
         
         <div className="additional-grid">
@@ -55,15 +55,15 @@ const AdditionalServices = () => {
               <div className="additional-icon">
                 <span>{service.icon}</span>
               </div>
-              <h3>{service.title}</h3>
-              <p>{service.description}</p>
+              <h3 className="text-tertiary">{service.title}</h3>
+              <p className="text-body">{service.description}</p>
             </div>
           ))}
         </div>
         
         <div className="additional-cta">
-          <p>Need a custom solution? Let's discuss your specific requirements.</p>
-          <button className="contact-btn">Contact Us</button>
+          <p className="text-body">Need a custom solution? Let's discuss your specific requirements.</p>
+          <button className="btn btn-primary">Contact Us</button>
         </div>
       </div>
     </section>

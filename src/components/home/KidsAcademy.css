@@ -1,0 +1,198 @@
+.kids-academy {
+  padding: 5rem 0;
+  background: white;
+}
+
+.academy-intro {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.academy-intro h2 {
+  margin-bottom: 1rem;
+}
+
+.academy-intro p {
+  max-width: 600px;
+  margin: 0 auto;
+  color: #4a5568;
+}
+
+.programs-section {
+  margin-bottom: 4rem;
+}
+
+.programs-section h3 {
+  text-align: center;
+  margin-bottom: 2rem;
+  color: #1a202c;
+}
+
+.programs-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.program-card {
+  background: #f8fafc;
+  border-radius: 16px;
+  padding: 2rem;
+  border: 1px solid #e2e8f0;
+  transition: all 0.3s ease;
+}
+
+.program-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 20px rgba(0, 0, 0, 0.1);
+  background: white;
+}
+
+.program-header {
+  margin-bottom: 1rem;
+}
+
+.program-header h4 {
+  margin-bottom: 0.5rem;
+  color: #1a202c;
+}
+
+.program-meta {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.age-group,
+.duration {
+  background: #667eea;
+  color: white;
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.program-card p {
+  color: #4a5568;
+  margin-bottom: 1.5rem;
+  line-height: 1.6;
+}
+
+.program-topics {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 2rem;
+}
+
+.program-topics li {
+  color: #2d3748;
+  padding: 0.5rem 0;
+  position: relative;
+  padding-left: 1.5rem;
+}
+
+.program-topics li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  color: #00d4aa;
+  font-weight: bold;
+}
+
+.testimonials-section {
+  margin-bottom: 4rem;
+}
+
+.testimonials-section h3 {
+  text-align: center;
+  margin-bottom: 2rem;
+  color: #1a202c;
+}
+
+.testimonials-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.testimonial-card {
+  background: #f8fafc;
+  border-radius: 16px;
+  padding: 2rem;
+  border: 1px solid #e2e8f0;
+  text-align: center;
+}
+
+.testimonial-card p {
+  color: #4a5568;
+  font-style: italic;
+  margin-bottom: 1rem;
+  line-height: 1.6;
+}
+
+.testimonial-author {
+  color: #1a202c;
+}
+
+.academy-cta {
+  text-align: center;
+  background: linear-gradient(135deg, #f8fafc, #e2e8f0);
+  border-radius: 16px;
+  padding: 3rem 2rem;
+  border: 1px solid #e2e8f0;
+}
+
+.academy-cta h3 {
+  margin-bottom: 1rem;
+  color: #1a202c;
+}
+
+.academy-cta p {
+  color: #4a5568;
+  margin-bottom: 2rem;
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.cta-buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .programs-grid,
+  .testimonials-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .program-card,
+  .testimonial-card {
+    padding: 1.5rem;
+  }
+  
+  .cta-buttons {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .cta-buttons .btn {
+    width: 100%;
+    max-width: 300px;
+  }
+}
+
+@media (max-width: 480px) {
+  .kids-academy {
+    padding: 3rem 0;
+  }
+  
+  .academy-cta {
+    padding: 2rem 1rem;
+  }
+} 

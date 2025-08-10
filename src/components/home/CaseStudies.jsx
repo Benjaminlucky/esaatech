@@ -33,11 +33,11 @@ const CaseStudies = () => {
   ];
 
   return (
-    <section className="case-studies">
-      <div className="case-studies-container">
+    <section id="case-studies" className="case-studies">
+      <div className="case-studies-container container">
         <div className="case-studies-header">
-          <h2>Success Stories</h2>
-          <p>Real results from our partnerships with organizations across industries</p>
+          <h2 className="text-secondary">Success Stories</h2>
+          <p className="text-body">Real results from our partnerships with organizations across industries</p>
         </div>
         
         <div className="case-studies-grid">
@@ -45,36 +45,36 @@ const CaseStudies = () => {
             <div key={study.id} className="case-study-card">
               <div className="case-study-header">
                 <span className="case-category">{study.category}</span>
-                <h3>{study.title}</h3>
+                <h3 className="text-tertiary">{study.title}</h3>
               </div>
               
               <div className="case-study-content">
                 <div className="case-section">
                   <h4>Challenge</h4>
-                  <p>{study.challenge}</p>
+                  <p className="text-body">{study.challenge}</p>
                 </div>
                 
                 <div className="case-section">
                   <h4>Solution</h4>
-                  <p>{study.solution}</p>
+                  <p className="text-body">{study.solution}</p>
                 </div>
                 
                 <div className="case-section">
                   <h4>Outcome</h4>
-                  <p>{study.outcome}</p>
+                  <p className="text-body">{study.outcome}</p>
                 </div>
                 
                 <div className="case-metrics">
                   <h4>Key Metrics</h4>
                   <ul>
                     {study.metrics.map((metric, index) => (
-                      <li key={index}>{metric}</li>
+                      <li key={index} className="text-small">{metric}</li>
                     ))}
                   </ul>
                 </div>
               </div>
               
-              <button className="case-study-cta">Read Full Case Study</button>
+              <button className="btn btn-primary btn-full">Read Full Case Study</button>
             </div>
           ))}
         </div>

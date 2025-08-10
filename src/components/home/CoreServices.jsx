@@ -39,11 +39,11 @@ const CoreServices = () => {
   ];
 
   return (
-    <section className="core-services">
-      <div className="services-container">
+    <section id="services" className="core-services">
+      <div className="services-container container">
         <div className="services-header">
-          <h2>Our Core Services</h2>
-          <p>Comprehensive solutions to protect, secure, and transform your business</p>
+          <h2 className="text-secondary">Our Core Services</h2>
+          <p className="text-body">Comprehensive solutions to protect, secure, and transform your business</p>
         </div>
         
         <div className="services-grid">
@@ -52,14 +52,14 @@ const CoreServices = () => {
               <div className="service-icon">
                 <span>{service.icon}</span>
               </div>
-              <h3>{service.title}</h3>
-              <p className="service-description">{service.description}</p>
+              <h3 className="text-tertiary">{service.title}</h3>
+              <p className="service-description text-body">{service.description}</p>
               <ul className="service-features">
                 {service.features.map((feature, index) => (
-                  <li key={index}>{feature}</li>
+                  <li key={index} className="text-small">{feature}</li>
                 ))}
               </ul>
-              <button className="service-cta">Learn More</button>
+              <button className="btn btn-primary btn-full">Learn More</button>
             </div>
           ))}
         </div>

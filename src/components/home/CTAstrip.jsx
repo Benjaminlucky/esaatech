@@ -1,17 +1,22 @@
 import React from 'react';
 import './CTAstrip.css';
 
-const CTAstrip = () => {
+const CTAstrip = ({ onOpenContactModal }) => {
   return (
     <section className="cta-strip">
-      <div className="cta-container">
+      <div className="cta-container container">
         <div className="cta-content">
-          <h2>Not sure where to start?</h2>
-          <p>Take our free readiness quiz to discover your organization's cybersecurity and AI readiness level</p>
-          <button className="cta-quiz-btn">Take Free Readiness Quiz</button>
-        </div>
-        <div className="cta-visual">
-          <div className="quiz-icon">📋</div>
+          <h2 className="text-secondary">Not sure where to start?</h2>
+          <p className="text-body">
+            Take our free readiness quiz to get personalized recommendations for your business
+          </p>
+          <button 
+            className="btn btn-accent btn-large cta-button"
+            onClick={onOpenContactModal}
+          >
+            Get Started Today
+            <span className="cta-icon">→</span>
+          </button>
         </div>
       </div>
     </section>

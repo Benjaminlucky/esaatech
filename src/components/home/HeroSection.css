@@ -27,9 +27,6 @@
 .hero-container {
   position: relative;
   z-index: 3;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 2rem;
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 4rem;
@@ -41,16 +38,11 @@
 }
 
 .hero-headline {
-  font-size: 3.5rem;
-  font-weight: 700;
-  line-height: 1.2;
   margin-bottom: 1.5rem;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 .hero-subheading {
-  font-size: 1.25rem;
-  line-height: 1.6;
   margin-bottom: 2.5rem;
   opacity: 0.95;
   max-width: 500px;
@@ -61,44 +53,6 @@
   display: flex;
   gap: 1rem;
   flex-wrap: wrap;
-}
-
-.cta-button {
-  padding: 1rem 2rem;
-  border: none;
-  border-radius: 50px;
-  font-size: 1rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-
-.cta-button.primary {
-  background: #00d4aa;
-  color: white;
-  box-shadow: 0 4px 15px rgba(0, 212, 170, 0.3);
-}
-
-.cta-button.primary:hover {
-  background: #00b894;
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(0, 212, 170, 0.4);
-}
-
-.cta-button.secondary {
-  background: transparent;
-  color: white;
-  border: 2px solid white;
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
-}
-
-.cta-button.secondary:hover {
-  background: white;
-  color: #667eea;
-  transform: translateY(-2px);
-  text-shadow: none;
 }
 
 .hero-visual {
@@ -161,14 +115,6 @@
     gap: 2rem;
   }
   
-  .hero-headline {
-    font-size: 2.5rem;
-  }
-  
-  .hero-subheading {
-    font-size: 1.1rem;
-  }
-  
   .hero-cta-buttons {
     justify-content: center;
   }
@@ -180,16 +126,12 @@
 }
 
 @media (max-width: 480px) {
-  .hero-headline {
-    font-size: 2rem;
-  }
-  
   .hero-cta-buttons {
     flex-direction: column;
     align-items: center;
   }
   
-  .cta-button {
+  .hero-cta-buttons .btn {
     width: 100%;
     max-width: 300px;
   }

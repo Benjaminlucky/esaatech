@@ -3,12 +3,6 @@
   background: #f8fafc;
 }
 
-.case-studies-container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 2rem;
-}
-
 .case-studies-header {
   text-align: center;
   margin-bottom: 4rem;
@@ -110,12 +104,11 @@
 }
 
 .case-metrics li {
-  color: #2d3748;
+  color: #4a5568;
   padding: 0.25rem 0;
   position: relative;
   padding-left: 1.25rem;
   font-size: 0.9rem;
-  font-weight: 500;
 }
 
 .case-metrics li::before {
@@ -136,9 +129,6 @@
   cursor: pointer;
   transition: all 0.3s ease;
   width: 100%;
-  font-size: 0.9rem;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
 }
 
 .case-study-cta:hover {
@@ -169,10 +159,6 @@
 @media (max-width: 480px) {
   .case-studies {
     padding: 3rem 0;
-  }
-  
-  .case-studies-container {
-    padding: 0 1rem;
   }
   
   .case-study-card {

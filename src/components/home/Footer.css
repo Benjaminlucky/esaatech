@@ -4,15 +4,9 @@
   padding: 4rem 0 2rem;
 }
 
-.footer-container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 2rem;
-}
-
 .footer-content {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 3rem;
   margin-bottom: 3rem;
 }
@@ -179,7 +173,7 @@
 /* Responsive Design */
 @media (max-width: 768px) {
   .footer-content {
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-template-columns: 1fr;
     gap: 2rem;
   }
   
@@ -195,19 +189,11 @@
     flex-direction: column;
     text-align: center;
   }
-  
-  .footer-legal {
-    justify-content: center;
-  }
 }
 
 @media (max-width: 480px) {
   .footer {
     padding: 3rem 0 1.5rem;
-  }
-  
-  .footer-container {
-    padding: 0 1rem;
   }
   
   .footer-content {
