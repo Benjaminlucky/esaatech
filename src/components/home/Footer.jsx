@@ -1,7 +1,7 @@
 import React from 'react';
 import './Footer.css';
 
-const Footer = () => {
+const Footer = ({ onOpenContactModal }) => {
   return (
     <footer id="contact" className="footer">
       <div className="footer-container container">
@@ -45,6 +45,12 @@ const Footer = () => {
               <p>📞 +1 (555) 123-4567</p>
               <p>📍 123 Business Ave, Tech City, TC 12345</p>
             </div>
+            <button 
+              className="footer-consultation-btn"
+              onClick={() => onOpenContactModal('appointment')}
+            >
+              Book a Free Consultation
+            </button>
           </div>
         </div>
         

@@ -9,9 +9,6 @@
 }
 
 .services-header h2 {
-  font-size: 2.5rem;
-  font-weight: 700;
-  color: #1a202c;
   margin-bottom: 1rem;
 }
 
@@ -28,15 +25,18 @@
   gap: 2rem;
 }
 
+/* Base Card Structure */
 .service-card {
   background: white;
   border-radius: 16px;
-  padding: 2.5rem;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
   transition: all 0.3s ease;
   border: 1px solid #e2e8f0;
   position: relative;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  height: 500px; /* Fixed height for consistent alignment */
 }
 
 .service-card::before {
@@ -49,6 +49,7 @@
   background: linear-gradient(90deg, #667eea, #764ba2);
   transform: scaleX(0);
   transition: transform 0.3s ease;
+  z-index: 3;
 }
 
 .service-card:hover {
@@ -60,53 +61,106 @@
   transform: scaleX(1);
 }
 
-.service-icon {
-  width: 80px;
-  height: 80px;
-  background: linear-gradient(135deg, #667eea, #764ba2);
-  border-radius: 50%;
+/* Background Images */
+.service-card.cyber-attack-card {
+  background: var(--cyber-attack-bg) center/cover no-repeat !important;
+}
+
+.service-card.cyber-consulting-card {
+  background: var(--cyber-consulting-bg) center/cover no-repeat !important;
+}
+
+.service-card.ai-card {
+  background: var(--ai-bg) center/cover no-repeat !important;
+}
+
+/* Background Overlay */
+.card-background-overlay {
+  position: absolute;
+  inset: 0;
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200"><text x="5" y="15" fill="rgba(255,255,255,0.15)" font-family="monospace" font-size="8">101010</text><text x="25" y="35" fill="rgba(255,255,255,0.15)" font-family="monospace" font-size="8">010101</text><text x="45" y="55" fill="rgba(255,255,255,0.15)" font-family="monospace" font-size="8">101010</text><text x="65" y="75" fill="rgba(255,255,255,0.15)" font-family="monospace" font-size="8">010101</text><text x="85" y="95" fill="rgba(255,255,255,0.15)" font-family="monospace" font-size="8">101010</text><text x="105" y="115" fill="rgba(255,255,255,0.15)" font-family="monospace" font-size="8">010101</text><text x="125" y="135" fill="rgba(255,255,255,0.15)" font-family="monospace" font-size="8">101010</text><text x="145" y="155" fill="rgba(255,255,255,0.15)" font-family="monospace" font-size="8">010101</text><text x="165" y="175" fill="rgba(255,255,255,0.15)" font-family="monospace" font-size="8">101010</text></svg>') center/cover repeat;
+  animation: scrollBinary 14s linear infinite;
+  opacity: 0.4;
+  pointer-events: none;
+  z-index: 1;
+}
+
+@keyframes scrollBinary {
+  0% { background-position: 0 0; }
+  100% { background-position: 0 200%; }
+}
+
+/* Card Sections */
+.card-header {
+  padding: 2rem 2rem 1rem 2rem;
+  position: relative;
+  z-index: 2;
+  flex-shrink: 0;
+}
+
+.card-content {
+  padding: 0 2rem;
+  position: relative;
+  z-index: 2;
+  flex: 1;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 1.5rem;
-  font-size: 2rem;
+  flex-direction: column;
 }
 
-.service-card h3 {
-  font-size: 1.5rem;
-  font-weight: 600;
-  color: #1a202c;
-  margin-bottom: 1rem;
+.card-footer {
+  padding: 1rem 2rem 2rem 2rem;
+  position: relative;
+  z-index: 2;
+  flex-shrink: 0;
 }
 
-.service-description {
-  color: #4a5568;
+/* Typography */
+.card-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  line-height: 1.1;
+  color: white;
+  margin: 0;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.card-description {
+  font-size: 1.25rem;
   line-height: 1.6;
-  margin-bottom: 1.5rem;
+  color: #00d4aa;
+  margin: 0 0 1.5rem 0;
+  font-weight: 500;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
 }
 
-.service-features {
+.card-features {
   list-style: none;
   padding: 0;
-  margin-bottom: 2rem;
+  margin: 0;
+  flex: 1;
 }
 
-.service-features li {
-  color: #2d3748;
+.feature-item {
+  color: rgba(255, 255, 255, 0.9);
   padding: 0.5rem 0;
   position: relative;
   padding-left: 1.5rem;
+  font-size: 1rem;
+  line-height: 1.5;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
 }
 
-.service-features li::before {
+.feature-item::before {
   content: '✓';
   position: absolute;
   left: 0;
   color: #00d4aa;
   font-weight: bold;
+  font-size: 1.1rem;
 }
 
-.service-cta {
+/* Button Styling - Specific to service cards only */
+.service-card .btn {
   background: linear-gradient(135deg, #667eea, #764ba2);
   color: white;
   border: none;
@@ -116,19 +170,22 @@
   cursor: pointer;
   transition: all 0.3s ease;
   width: 100%;
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
-.service-cta:hover {
+.service-card .btn:hover {
   transform: translateY(-2px);
   box-shadow: 0 8px 15px rgba(102, 126, 234, 0.3);
 }
 
+.service-card .btn-full {
+  width: 100%;
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
-  .services-header h2 {
-    font-size: 2rem;
-  }
-  
   .services-header p {
     font-size: 1.1rem;
   }
@@ -139,7 +196,23 @@
   }
   
   .service-card {
-    padding: 2rem;
+    height: auto;
+    min-height: 450px;
+  }
+  
+  .card-header,
+  .card-content,
+  .card-footer {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+  
+  .card-title {
+    font-size: 2rem;
+  }
+  
+  .card-description {
+    font-size: 1.1rem;
   }
 }
 
@@ -149,6 +222,21 @@
   }
   
   .service-card {
-    padding: 1.5rem;
+    min-height: 400px;
+  }
+  
+  .card-header,
+  .card-content,
+  .card-footer {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  
+  .card-title {
+    font-size: 1.75rem;
+  }
+  
+  .card-description {
+    font-size: 1rem;
   }
 } 

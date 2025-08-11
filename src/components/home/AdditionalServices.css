@@ -9,9 +9,6 @@
 }
 
 .additional-header h2 {
-  font-size: 2rem;
-  font-weight: 600;
-  color: #1a202c;
   margin-bottom: 0.5rem;
 }
 
@@ -101,10 +98,6 @@
 
 /* Responsive Design */
 @media (max-width: 768px) {
-  .additional-header h2 {
-    font-size: 1.75rem;
-  }
-  
   .additional-grid {
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   }

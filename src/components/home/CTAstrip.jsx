@@ -12,7 +12,7 @@ const CTAstrip = ({ onOpenContactModal }) => {
           </p>
           <button 
             className="btn btn-accent btn-large cta-button"
-            onClick={onOpenContactModal}
+            onClick={() => onOpenContactModal('appointment')}
           >
             Get Started Today
             <span className="cta-icon">→</span>

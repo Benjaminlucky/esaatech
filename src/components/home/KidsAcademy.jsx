@@ -5,6 +5,14 @@ const KidsAcademy = () => {
   const programs = [
     {
       id: 1,
+      title: 'Coding Fundamentals',
+      age: '12-16 years',
+      duration: '8 weeks',
+      description: 'Basic programming concepts using kid-friendly languages and tools.',
+      topics: ['Scratch programming', 'Python basics', 'Game development']
+    },
+    {
+      id: 2,
       title: 'Cyber Safety Basics',
       age: '8-12 years',
       duration: '4 weeks',
@@ -12,20 +20,12 @@ const KidsAcademy = () => {
       topics: ['Password creation', 'Safe browsing', 'Social media awareness']
     },
     {
-      id: 2,
-      title: 'Digital Citizenship',
+      id: 3,
+      title: 'AI & Robotics',
       age: '10-14 years',
       duration: '6 weeks',
-      description: 'Teaching kids to be responsible digital citizens and ethical technology users.',
-      topics: ['Online etiquette', 'Digital footprint', 'Privacy protection']
-    },
-    {
-      id: 3,
-      title: 'Coding Fundamentals',
-      age: '12-16 years',
-      duration: '8 weeks',
-      description: 'Basic programming concepts using kid-friendly languages and tools.',
-      topics: ['Scratch programming', 'Python basics', 'Game development']
+      description: 'Introduction to artificial intelligence and robotics concepts for young learners.',
+      topics: ['AI basics', 'Robotics fundamentals', 'Machine learning intro']
     }
   ];
 
@@ -87,16 +87,28 @@ const KidsAcademy = () => {
 
         <div className="testimonials-section">
           <h3 className="text-tertiary">What Kids Say</h3>
-          <div className="testimonials-grid">
-            {testimonials.map((testimonial) => (
-              <div key={testimonial.id} className="testimonial-card">
-                <p className="text-body">"{testimonial.quote}"</p>
-                <div className="testimonial-author">
-                  <strong>{testimonial.name}</strong>
-                  <span className="text-small">, {testimonial.age} years old</span>
+          <div className="testimonials-carousel">
+            <div className="testimonials-track">
+              {testimonials.map((testimonial) => (
+                <div key={testimonial.id} className="testimonial-card">
+                  <p className="text-body">"{testimonial.quote}"</p>
+                  <div className="testimonial-author">
+                    <strong>{testimonial.name}</strong>
+                    <span className="text-small">, {testimonial.age} years old</span>
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
+              {/* Duplicate testimonials for seamless loop */}
+              {testimonials.map((testimonial) => (
+                <div key={`duplicate-${testimonial.id}`} className="testimonial-card">
+                  <p className="text-body">"{testimonial.quote}"</p>
+                  <div className="testimonial-author">
+                    <strong>{testimonial.name}</strong>
+                    <span className="text-small">, {testimonial.age} years old</span>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
 

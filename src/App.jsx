@@ -13,8 +13,10 @@ import ContactModal from './components/ContactModal';
 
 function App() {
   const [isContactModalOpen, setIsContactModalOpen] = useState(false);
+  const [contactModalTab, setContactModalTab] = useState('message');
 
-  const openContactModal = () => {
+  const openContactModal = (tab = 'message') => {
+    setContactModalTab(tab);
     setIsContactModalOpen(true);
   };
 
@@ -27,7 +29,7 @@ function App() {
       <Navigation />
       
       <main>
-        <HeroSection />
+        <HeroSection onOpenContactModal={openContactModal} />
         <CoreServices />
         <AdditionalServices />
         <KidsAcademy />
@@ -36,11 +38,12 @@ function App() {
         <CTAstrip onOpenContactModal={openContactModal} />
       </main>
       
-      <Footer />
+      <Footer onOpenContactModal={openContactModal} />
       
       <ContactModal 
         isOpen={isContactModalOpen} 
-        onClose={closeContactModal} 
+        onClose={closeContactModal}
+        initialTab={contactModalTab}
       />
     </div>
   );

@@ -9,9 +9,6 @@
 }
 
 .case-studies-header h2 {
-  font-size: 2.5rem;
-  font-weight: 700;
-  color: #1a202c;
   margin-bottom: 1rem;
 }
 
@@ -138,10 +135,6 @@
 
 /* Responsive Design */
 @media (max-width: 768px) {
-  .case-studies-header h2 {
-    font-size: 2rem;
-  }
-  
   .case-studies-header p {
     font-size: 1.1rem;
   }

@@ -31,7 +31,7 @@ const Navigation = () => {
     { id: 'kids-academy', label: 'Kids Academy' },
     { id: 'case-studies', label: 'Case Studies' },
     { id: 'tools', label: 'Tools' },
-    { id: 'contact', label: 'Contact' }
+   
   ];
 
   return (

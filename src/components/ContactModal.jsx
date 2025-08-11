@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { submitContactForm } from '../services/contactService';
+import { submitContactForm, testTableAccess } from '../services/airtableService';
 import './ContactModal.css';
 
-const ContactModal = ({ isOpen, onClose }) => {
-  const [activeTab, setActiveTab] = useState('message'); // 'message' or 'appointment'
+const ContactModal = ({ isOpen, onClose, initialTab = 'message' }) => {
+  const [activeTab, setActiveTab] = useState(initialTab); // 'message' or 'appointment'
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -12,6 +12,21 @@ const ContactModal = ({ isOpen, onClose }) => {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState(null); // 'success', 'error', null
+
+  // Debug: Test table access when component mounts
+  useEffect(() => {
+    if (isOpen) {
+      console.log('🔍 Debugging: Testing Airtable table access...');
+      testTableAccess().catch(console.error);
+    }
+  }, [isOpen]);
+
+  // Reset active tab when modal opens with new initialTab
+  useEffect(() => {
+    if (isOpen) {
+      setActiveTab(initialTab);
+    }
+  }, [isOpen, initialTab]);
 
   // Load Calendly script when appointment tab is active
   useEffect(() => {
@@ -241,8 +256,8 @@ const ContactModal = ({ isOpen, onClose }) => {
               <div className="calendly-embed-container">
                 <div 
                   className="calendly-inline-widget" 
-                  data-url="https://calendly.com/your-username/consultation"
-                  style={{ minWidth: '320px', height: '700px' }}
+                  data-url="https://calendly.com/esaatechnology/new-meeting"
+                  style={{ minWidth: '320px', height: '600px' }}
                 ></div>
               </div>
             </div>

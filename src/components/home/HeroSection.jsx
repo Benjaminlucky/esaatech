@@ -2,7 +2,7 @@ import React from 'react';
 import './HeroSection.css';
 import heroImage from '../../assets/hero-section.png';
 
-const HeroSection = () => {
+const HeroSection = ({ onOpenContactModal }) => {
   return (
     <section id="home" className="hero-section">
       <div className="hero-background">
@@ -18,7 +18,12 @@ const HeroSection = () => {
             to protect your business and accelerate your digital transformation journey.
           </p>
           <div className="hero-cta-buttons">
-            <button className="btn btn-primary">Book a Free Consultation</button>
+            <button 
+              className="btn btn-primary"
+              onClick={() => onOpenContactModal('appointment')}
+            >
+              Book a Free Consultation
+            </button>
             <button className="btn btn-secondary">Assess Your Cyber Readiness</button>
           </div>
         </div>
