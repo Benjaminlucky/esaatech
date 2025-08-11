@@ -21,7 +21,7 @@
 
 .additional-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: repeat(3, 1fr); /* 3 columns on desktop */
   gap: 1.5rem;
   margin-bottom: 3rem;
 }
@@ -99,7 +99,8 @@
 /* Responsive Design */
 @media (max-width: 768px) {
   .additional-grid {
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-template-columns: repeat(2, 1fr); /* 2 columns on tablet */
+    gap: 1.25rem;
   }
   
   .additional-card {
@@ -110,6 +111,11 @@
 @media (max-width: 480px) {
   .additional-services {
     padding: 3rem 0;
+  }
+  
+  .additional-grid {
+    grid-template-columns: 1fr; /* 1 column on mobile */
+    gap: 1rem;
   }
   
   .additional-cta {
