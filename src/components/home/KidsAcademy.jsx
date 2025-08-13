@@ -54,7 +54,7 @@ const KidsAcademy = () => {
     <section id="kids-academy" className="kids-academy">
       <div className="academy-container container">
         <div className="academy-intro">
-          <h2 className="text-secondary">Kids Academy</h2>
+          <h2 className="text-secondary">Code Cubs</h2>
           <p className="text-body">
             Empowering the next generation with essential digital skills and cyber safety knowledge. 
             Our age-appropriate programs make learning technology fun, safe, and engaging.
