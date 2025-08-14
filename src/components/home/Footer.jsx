@@ -1,7 +1,51 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { subscribeToNewsletter } from '../../services/newsletterService';
 import './Footer.css';
 
 const Footer = ({ onOpenContactModal }) => {
+  const [email, setEmail] = useState('');
+  const [isSubscribing, setIsSubscribing] = useState(false);
+  const [subscriptionStatus, setSubscriptionStatus] = useState(null); // 'success', 'error', null
+  const [subscriptionMessage, setSubscriptionMessage] = useState('');
+
+  const handleNewsletterSubmit = async (e) => {
+    e.preventDefault();
+    
+    if (!email.trim()) {
+      setSubscriptionStatus('error');
+      setSubscriptionMessage('Please enter your email address');
+      return;
+    }
+
+    setIsSubscribing(true);
+    setSubscriptionStatus(null);
+    setSubscriptionMessage('');
+
+    try {
+      await subscribeToNewsletter(email);
+      setSubscriptionStatus('success');
+      setSubscriptionMessage('Successfully subscribed! Check your email for confirmation.');
+      setEmail('');
+      
+      // Clear success message after 5 seconds
+      setTimeout(() => {
+        setSubscriptionStatus(null);
+        setSubscriptionMessage('');
+      }, 5000);
+    } catch (error) {
+      setSubscriptionStatus('error');
+      setSubscriptionMessage(error.message);
+      
+      // Clear error message after 5 seconds
+      setTimeout(() => {
+        setSubscriptionStatus(null);
+        setSubscriptionMessage('');
+      }, 5000);
+    } finally {
+      setIsSubscribing(false);
+    }
+  };
+
   return (
     <footer id="contact" className="footer">
       <div className="footer-container container">
@@ -58,14 +102,28 @@ const Footer = ({ onOpenContactModal }) => {
           <div className="newsletter-section">
             <h4>Stay Updated</h4>
             <p>Get the latest insights on cybersecurity and AI trends</p>
-            <div className="newsletter-form">
+            <form className="newsletter-form" onSubmit={handleNewsletterSubmit}>
               <input 
                 type="email" 
                 placeholder="Your email address"
                 className="footer-email-input"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                disabled={isSubscribing}
               />
-              <button className="footer-subscribe-btn">Subscribe</button>
-            </div>
+              <button 
+                type="submit" 
+                className="footer-subscribe-btn"
+                disabled={isSubscribing}
+              >
+                {isSubscribing ? 'Subscribing...' : 'Subscribe'}
+              </button>
+            </form>
+            {subscriptionMessage && (
+              <div className={`newsletter-message ${subscriptionStatus}`}>
+                {subscriptionMessage}
+              </div>
+            )}
           </div>
         </div>
         

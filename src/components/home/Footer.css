@@ -158,6 +158,43 @@
   background: #00b894;
 }
 
+.footer-subscribe-btn:disabled {
+  background: #4a5568;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.footer-subscribe-btn:disabled:hover {
+  background: #4a5568;
+  transform: none;
+}
+
+.footer-email-input:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.newsletter-message {
+  margin-top: 1rem;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  text-align: center;
+}
+
+.newsletter-message.success {
+  background: rgba(0, 212, 170, 0.1);
+  color: #00d4aa;
+  border: 1px solid rgba(0, 212, 170, 0.3);
+}
+
+.newsletter-message.error {
+  background: rgba(248, 113, 113, 0.1);
+  color: #f87171;
+  border: 1px solid rgba(248, 113, 113, 0.3);
+}
+
 .footer-bottom {
   border-top: 1px solid #2d3748;
   padding-top: 2rem;

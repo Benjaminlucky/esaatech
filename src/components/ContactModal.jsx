@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { submitContactForm, testTableAccess } from '../services/airtableService';
+import { submitContactForm } from '../services/contactService';
 import './ContactModal.css';
 
 const ContactModal = ({ isOpen, onClose, initialTab = 'message' }) => {
@@ -12,14 +12,6 @@ const ContactModal = ({ isOpen, onClose, initialTab = 'message' }) => {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState(null); // 'success', 'error', null
-
-  // Debug: Test table access when component mounts
-  useEffect(() => {
-    if (isOpen) {
-      console.log('🔍 Debugging: Testing Airtable table access...');
-      testTableAccess().catch(console.error);
-    }
-  }, [isOpen]);
 
   // Reset active tab when modal opens with new initialTab
   useEffect(() => {
