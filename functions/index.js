@@ -105,4 +105,79 @@ exports.onContactCreated = onDocumentCreated(
   }
 );
 
+// Newsletter subscription handler
+exports.onNewsletterSubscription = onDocumentCreated(
+  {
+    document: 'newsletter-subscriptions/{docId}',
+    region: 'us-central1',
+    secrets: [SLACK_WEBHOOK_URL],
+    retry: true,
+  },
+  async (event) => {
+    const snap = event.data;
+    if (!snap) return;
+
+    const subscriptionId = snap.id;
+    const data = snap.data();
+
+    // Idempotency guard
+    if (data?.delivery?.deliveredAt) {
+      logger.info('Newsletter subscription already delivered, skipping', { subscriptionId });
+      return;
+    }
+
+    const email = data?.email || 'Unknown';
+    const source = data?.source || 'unknown';
+    const timestamp = data?.timestamp?.toDate?.() || new Date();
+
+    const payload = {
+      text: `New newsletter subscription: ${email}`,
+      blocks: [
+        { type: 'header', text: { type: 'plain_text', text: '📧 New Newsletter Subscription' } },
+        { type: 'section', fields: [
+          { type: 'mrkdwn', text: `*Email*\n${email}` },
+          { type: 'mrkdwn', text: `*Source*\n${source}` },
+          { type: 'mrkdwn', text: `*Subscribed*\n${timestamp.toLocaleDateString()} ${timestamp.toLocaleTimeString()}` },
+        ]},
+        { type: 'section', text: { 
+          type: 'mrkdwn', 
+          text: `*Preferences*\n• Cybersecurity updates\n• AI trends\n• Tech insights` 
+        }},
+        { type: 'context', elements: [ { type: 'mrkdwn', text: `Subscription ID: ${subscriptionId}` } ] },
+      ],
+    };
+
+    try {
+      const webhookUrl = await resolveSlackWebhookUrl();
+      const resp = await fetch(webhookUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+      const text = await resp.text();
+      if (!resp.ok) {
+        throw new Error(`Slack webhook failed (${resp.status}): ${text}`);
+      }
+
+      await db.doc(`newsletter-subscriptions/${subscriptionId}`).set({
+        status: 'delivered',
+        delivery: { deliveredAt: new Date().toISOString() },
+      }, { merge: true });
+
+      logger.info('Newsletter subscription delivered to Slack', { subscriptionId });
+    } catch (err) {
+      logger.error('Newsletter subscription Slack error', { error: String(err), subscriptionId });
+      await db.doc(`newsletter-subscriptions/${subscriptionId}`).set({
+        status: 'failed',
+        delivery: {
+          attempts: (data?.delivery?.attempts || 0) + 1,
+          lastAttemptAt: new Date().toISOString(),
+          error: String(err?.message || err),
+        },
+      }, { merge: true });
+      throw err; // allow retry
+    }
+  }
+);
+
 

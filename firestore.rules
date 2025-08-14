@@ -8,6 +8,12 @@ service cloud.firestore {
       allow read, update: if false; // Only functions can read/update
     }
     
+    // Allow anyone to create newsletter subscriptions
+    match /newsletter-subscriptions/{subscriptionId} {
+      allow create: if true;
+      allow read, update: if false; // Only functions can read/update
+    }
+    
     // Protect config documents - only functions can access
     match /config/{configId} {
       allow read, write: if false; // Only server-side functions
