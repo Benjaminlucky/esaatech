@@ -39,23 +39,60 @@ We chose Firebase over other solutions (like Airtable) for several reasons:
 
 ## Firebase Configuration {#firebase-configuration}
 
+### Environment Variables Setup
+Before configuring Firebase, we set up environment variables to keep our API keys secure and support CI/CD deployments:
+
+#### 1. Create Environment Variables File
+```bash
+# .env (not committed to git)
+VITE_FIREBASE_API_KEY=your_api_key_here
+VITE_FIREBASE_AUTH_DOMAIN=your_project.firebaseapp.com
+VITE_FIREBASE_PROJECT_ID=your_project_id
+VITE_FIREBASE_STORAGE_BUCKET=your_project.firebasestorage.app
+VITE_FIREBASE_MESSAGING_SENDER_ID=your_sender_id
+VITE_FIREBASE_APP_ID=your_app_id
+VITE_FIREBASE_MEASUREMENT_ID=your_measurement_id
+```
+
+#### 2. Update .gitignore
+```gitignore
+# Environment variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+```
+
+#### 3. Create Template File
+```bash
+# .env.example (committed to git for team setup)
+VITE_FIREBASE_API_KEY=your_api_key_here
+VITE_FIREBASE_AUTH_DOMAIN=your_project.firebaseapp.com
+VITE_FIREBASE_PROJECT_ID=your_project_id
+VITE_FIREBASE_STORAGE_BUCKET=your_project.firebasestorage.app
+VITE_FIREBASE_MESSAGING_SENDER_ID=your_sender_id
+VITE_FIREBASE_APP_ID=your_app_id
+VITE_FIREBASE_MEASUREMENT_ID=your_measurement_id
+```
+
 ### Setting Up Firebase Project
-First, we created a Firebase project and configured it for web applications:
+After setting up environment variables, we configure Firebase using these secure values:
 
 ```javascript
 // src/firebase/config.js
 import { initializeApp } from 'firebase/app';
 import { getFirestore } from 'firebase/firestore';
 
-// Your Firebase configuration
+// Firebase configuration using environment variables
 const firebaseConfig = {
-  apiKey: "*********************",
-  authDomain: "esaaconsulting.firebaseapp.com",
-  projectId: "esaaconsulting",
-  storageBucket: "esaaconsulting.firebasestorage.app",
-  messagingSenderId: "********************",
-  appId: "*****************************",
-  measurementId: "G-XCSEVNE1RX"
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID,
+  measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID
 };
 
 // Initialize Firebase
@@ -329,6 +366,69 @@ service cloud.firestore {
 **Problem**: Users clicking submit multiple times
 **Solution**: Disable submit button during `isSubmitting` state
 
+## Deployment and CI/CD
+
+### Production Deployment Considerations
+When deploying to production, the environment variables are handled differently than in development:
+
+#### How Environment Variables Work in Production:
+1. **Local Development**: Uses `.env` file
+2. **Production Build**: Environment variables are embedded into the JavaScript bundle at build time
+3. **Static Hosting**: The built files contain the actual API key values
+
+#### GitHub Actions CI/CD Setup
+For automated deployments, we set up GitHub Actions with environment variables:
+
+```yaml
+# .github/workflows/firebase-deploy.yml
+name: Deploy to Firebase Hosting
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build_and_deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+        cache: 'npm'
+        
+    - name: Install dependencies
+      run: npm ci
+      
+    - name: Build project
+      env:
+        VITE_FIREBASE_API_KEY: ${{ secrets.VITE_FIREBASE_API_KEY }}
+        VITE_FIREBASE_AUTH_DOMAIN: ${{ secrets.VITE_FIREBASE_AUTH_DOMAIN }}
+        VITE_FIREBASE_PROJECT_ID: ${{ secrets.VITE_FIREBASE_PROJECT_ID }}
+        VITE_FIREBASE_STORAGE_BUCKET: ${{ secrets.VITE_FIREBASE_STORAGE_BUCKET }}
+        VITE_FIREBASE_MESSAGING_SENDER_ID: ${{ secrets.VITE_FIREBASE_MESSAGING_SENDER_ID }}
+        VITE_FIREBASE_APP_ID: ${{ secrets.VITE_FIREBASE_APP_ID }}
+        VITE_FIREBASE_MEASUREMENT_ID: ${{ secrets.VITE_FIREBASE_MEASUREMENT_ID }}
+      run: npm run build
+      
+    - name: Deploy to Firebase
+      uses: FirebaseExtended/action-hosting-deploy@v0
+      with:
+        repoToken: '${{ secrets.GITHUB_TOKEN }}'
+        firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT }}'
+        channelId: live
+        projectId: esaaconsulting
+```
+
+#### Setting Up GitHub Secrets:
+1. Go to GitHub Repository → Settings → Secrets and Variables → Actions
+2. Add each environment variable as a repository secret
+3. Use the exact same names as in your `.env` file
+
 ## Best Practices and Recommendations
 
 ### 1. Error Handling
@@ -342,6 +442,9 @@ service cloud.firestore {
 - Consider batching multiple operations
 
 ### 3. Security
+- Never commit `.env` files to version control
+- Use environment variables for all sensitive configuration
+- Set up proper CI/CD with GitHub secrets for automated deployments
 - Never expose sensitive data in client code
 - Use Security Rules for data protection
 - Validate all inputs on both client and server
