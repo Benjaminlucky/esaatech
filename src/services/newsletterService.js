@@ -3,17 +3,12 @@ import { db } from '../firebase/config';
 
 export const subscribeToNewsletter = async (email) => {
   try {
-    console.log('🔍 Newsletter subscription starting for:', email);
-    
     // Basic email validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
-      console.log('❌ Email validation failed:', email);
       throw new Error('Please enter a valid email address');
     }
 
-    console.log('✅ Email validation passed, attempting Firestore write...');
-    
     const docRef = await addDoc(collection(db, 'newsletter-subscriptions'), {
       email: email.toLowerCase().trim(),
       timestamp: serverTimestamp(),
@@ -30,15 +25,10 @@ export const subscribeToNewsletter = async (email) => {
       }
     });
 
-    console.log('✅ Newsletter subscription created with ID:', docRef.id);
+    console.log('Newsletter subscription created with ID:', docRef.id);
     return { success: true, id: docRef.id };
   } catch (error) {
-    console.error('❌ Error subscribing to newsletter:', error);
-    console.error('❌ Error details:', {
-      code: error.code,
-      message: error.message,
-      stack: error.stack
-    });
+    console.error('Error subscribing to newsletter:', error);
     throw new Error(error.message || 'Failed to subscribe to newsletter. Please try again.');
   }
 };

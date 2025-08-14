@@ -11,25 +11,18 @@ const Footer = ({ onOpenContactModal }) => {
   const handleNewsletterSubmit = async (e) => {
     e.preventDefault();
     
-    console.log('📧 Newsletter form submitted with email:', email);
-    
     if (!email.trim()) {
-      console.log('❌ Empty email field');
       setSubscriptionStatus('error');
       setSubscriptionMessage('Please enter your email address');
       return;
     }
 
-    console.log('🚀 Starting newsletter subscription process...');
     setIsSubscribing(true);
     setSubscriptionStatus(null);
     setSubscriptionMessage('');
 
     try {
-      console.log('📤 Calling subscribeToNewsletter...');
-      const result = await subscribeToNewsletter(email);
-      console.log('✅ Newsletter subscription successful:', result);
-      
+      await subscribeToNewsletter(email);
       setSubscriptionStatus('success');
       setSubscriptionMessage('Successfully subscribed! Check your email for confirmation.');
       setEmail('');
@@ -40,7 +33,6 @@ const Footer = ({ onOpenContactModal }) => {
         setSubscriptionMessage('');
       }, 5000);
     } catch (error) {
-      console.error('❌ Newsletter subscription failed:', error);
       setSubscriptionStatus('error');
       setSubscriptionMessage(error.message);
       
@@ -50,7 +42,6 @@ const Footer = ({ onOpenContactModal }) => {
         setSubscriptionMessage('');
       }, 5000);
     } finally {
-      console.log('🏁 Newsletter subscription process completed');
       setIsSubscribing(false);
     }
   };
