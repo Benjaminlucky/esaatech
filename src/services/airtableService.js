@@ -1,114 +1,69 @@
-import { base, AIRTABLE_TABLE_NAME } from '../airtable/config';
+const AIRTABLE_WEBHOOK_URL = import.meta.env.VITE_AIRTABLE_WEBHOOK_URL;
+const CONTACT_WEBHOOK_TOKEN = import.meta.env.VITE_CONTACT_WEBHOOK_TOKEN || undefined;
 
-// Utility function to map form data to Airtable fields
-const mapFormDataToAirtableFields = (formData) => {
-  return {
-    'A Name': formData.name,
-    'email': formData.email,
-    'company': formData.company || '',
-    'message': formData.message,
-    'created at': new Date().toISOString()
-  };
-};
-
-// Function to test table access
+// Function to test webhook availability (lightweight validation)
 export const testTableAccess = async () => {
   try {
-    console.log('🔍 Testing table access for:', AIRTABLE_TABLE_NAME);
-    
-    // Try to select records from the table to see if it exists
-    const records = await base(AIRTABLE_TABLE_NAME).select({
-      maxRecords: 1
-    }).firstPage();
-    
-    console.log('✅ Table access successful! Found', records.length, 'records');
-    return { success: true, tableName: AIRTABLE_TABLE_NAME };
+    if (!AIRTABLE_WEBHOOK_URL) {
+      console.error('❌ Webhook URL missing. Set VITE_AIRTABLE_WEBHOOK_URL');
+      return { success: false };
+    }
+    // Do not actually POST to avoid creating noise. Just return presence.
+    console.log('✅ Webhook URL detected. Ready to submit.');
+    return { success: true, webhook: true };
   } catch (error) {
-    console.error('❌ Table access failed:', error);
+    console.error('❌ Webhook validation failed:', error);
     return { success: false };
   }
 };
 
+// Submit contact form via Airtable Automation Webhook
 export const submitContactForm = async (formData) => {
+  // Validate required fields
+  if (!formData?.name || !formData?.email || !formData?.message) {
+    throw new Error('Name, email, and message are required fields.');
+  }
+  if (!AIRTABLE_WEBHOOK_URL) {
+    throw new Error('Airtable webhook URL is not configured.');
+  }
+
+  const payload = {
+    name: formData.name,
+    email: formData.email,
+    company: formData.company || '',
+    message: formData.message,
+    submittedAt: new Date().toISOString(),
+    sourceUrl: typeof window !== 'undefined' ? window.location.href : '',
+    userAgent: typeof navigator !== 'undefined' ? navigator.userAgent : '',
+    token: CONTACT_WEBHOOK_TOKEN || undefined,
+  };
+
   try {
-    // Validate required fields
-    if (!formData.name || !formData.email || !formData.message) {
-      throw new Error('Name, email, and message are required fields.');
+    const response = await fetch(AIRTABLE_WEBHOOK_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    });
+
+    if (!response.ok) {
+      const text = await response.text().catch(() => '');
+      throw new Error(`Webhook call failed: ${response.status} ${text}`);
     }
 
-    // Map form data to Airtable fields
-    const fields = mapFormDataToAirtableFields(formData);
-
-    console.log('📝 Attempting to submit to table:', AIRTABLE_TABLE_NAME);
-    console.log('📋 Fields to submit:', fields);
-
-    // Try to create record in Airtable
-    const record = await base(AIRTABLE_TABLE_NAME).create([
-      { fields }
-    ]);
-
-    console.log('✅ Contact form submitted to Airtable with ID:', record[0].id);
-    return { success: true, id: record[0].id };
+    return { success: true };
   } catch (error) {
-    console.error('❌ Error submitting contact form to Airtable:', error);
-    
-    // Provide more specific error messages
-    if (error.message.includes('AUTHENTICATION_REQUIRED')) {
-      throw new Error('Authentication failed. Please check your API key.');
-    } else if (error.message.includes('NOT_FOUND') || error.statusCode === 404) {
-      throw new Error(`Table "${AIRTABLE_TABLE_NAME}" not found. Please check your table name.`);
-    } else if (error.message.includes('INVALID_PERMISSIONS')) {
-      throw new Error('Permission denied. Please check your API key permissions.');
-    } else {
-      throw new Error('Failed to submit contact form. Please try again.');
-    }
+    console.error('❌ Error submitting contact form via webhook:', error);
+    throw new Error('Failed to submit contact form. Please try again.');
   }
 };
 
-// Optional: Get contact form statistics
+// Optional: The following helpers are no-ops in webhook mode, but kept for API compatibility
 export const getContactStats = async () => {
-  try {
-    const records = await base(AIRTABLE_TABLE_NAME).select({
-      maxRecords: 1000,
-      view: 'Grid view'
-    }).all();
-
-    const stats = {
-      totalContacts: records.length,
-      recentContacts: records.filter(record => {
-        const createdAt = new Date(record.fields.created_at);
-        const thirtyDaysAgo = new Date();
-        thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
-        return createdAt > thirtyDaysAgo;
-      }).length
-    };
-
-    return { success: true, stats };
-  } catch (error) {
-    console.error('Error getting contact stats from Airtable:', error);
-    throw error;
-  }
+  console.warn('getContactStats is not available in webhook mode.');
+  return { success: true, stats: { totalContacts: 0, recentContacts: 0 } };
 };
 
-// Optional: Get all contacts (for admin purposes)
 export const getAllContacts = async () => {
-  try {
-    const records = await base(AIRTABLE_TABLE_NAME).select({
-      maxRecords: 1000,
-      view: 'Grid view',
-      sort: [{ field: 'created_at', direction: 'desc' }]
-    }).all();
-
-    return records.map(record => ({
-      id: record.id,
-      name: record.fields.Name,
-      email: record.fields.email,
-      company: record.fields.company,
-      message: record.fields.message,
-      createdAt: record.fields.created_at
-    }));
-  } catch (error) {
-    console.error('Error getting contacts from Airtable:', error);
-    throw error;
-  }
+  console.warn('getAllContacts is not available in webhook mode.');
+  return [];
 }; 
