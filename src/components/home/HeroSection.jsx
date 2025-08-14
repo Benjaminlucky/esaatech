@@ -34,13 +34,13 @@ const HeroSection = ({ onOpenContactModal }) => {
             <div className="buttons w-full mx-auto flex flex-col  sm:flex-row items-start sm:items-center gap-4 mt-8">
               <Link
                 to="#"
-                className="bg-orange-500 w-full md:w-fit  text-white px-3 md:px-6 py-3 rounded-sm hover:bg-orange-600 transition-colors duration-300 text-lg font-semibold"
+                className="bg-orange-500 w-full md:w-fit text-center  text-white px-3 md:px-6 py-3 rounded-sm hover:bg-orange-600 transition-colors duration-300 text-lg font-semibold"
               >
                 BOOK A FREE CONSULTATION
               </Link>
               <Link
                 to="#"
-                className="bg-white text-navy-700 w-full md:w-fit  px-3 md:px-6 py-3 rounded-sm hover:bg-blue-100 transition-colors duration-300 text-lg font-semibold"
+                className="bg-white text-navy-700 w-full md:w-fit text-center px-3 md:px-6 py-3 rounded-sm hover:bg-blue-100 transition-colors duration-300 text-lg font-semibold"
               >
                 ASSESS YOUR CYBER READINESS
               </Link>

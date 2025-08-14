@@ -28,10 +28,11 @@ function App() {
 
   return (
     <Router>
-      <HeaderNavigation />
+      <Navigation />
       <Routes>
         <Route path="/" element={<Home />} />
       </Routes>
+      <Footer />
     </Router>
   );
 }

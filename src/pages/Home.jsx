@@ -1,6 +1,10 @@
 import React from "react";
 import HeroSection from "../components/home/HeroSection";
 import CoreServices from "../components/home/CoreServices";
+import AdditionalServices from "../components/home/AdditionalServices";
+import KidsAcademy from "../components/home/KidsAcademy";
+import CaseStudies from "../components/home/CaseStudies";
+import ToolsResources from "../components/home/ToolsResources";
 
 function Home() {
   return (
@@ -13,18 +17,18 @@ function Home() {
       </div>
       <div
         id="additional-services"
-        className="hero__wrapper min-h-screen bg-blue-300"
+        className="hero__wrapper min-h-screen bg-[#020814]"
       >
-        additional-services
+        <AdditionalServices />
       </div>
       <div id="KidsAcademy" className="hero__wrapper min-h-screen bg-navy-300">
-        KidsAcademy
+        <KidsAcademy />
       </div>
       <div id="case-studies" className="hero__wrapper min-h-screen bg-blue-600">
-        case-studies
+        <CaseStudies />
       </div>
       <div id="tools" className="hero__wrapper min-h-screen bg-orange-700">
-        tools
+        <ToolsResources />
       </div>
     </div>
   );
