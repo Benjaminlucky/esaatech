@@ -13,8 +13,25 @@ const { logger } = require('firebase-functions');
 initializeApp();
 const db = getFirestore();
 
-// Secret: set via `firebase functions:secrets:set SLACK_WEBHOOK_URL`
+// Secret: preferred (requires Blaze): `firebase functions:secrets:set SLACK_WEBHOOK_URL`
+// Fallback (works on Spark): store a document at `config/slack` with field `webhookUrl`
 const SLACK_WEBHOOK_URL = defineSecret('SLACK_WEBHOOK_URL');
+
+async function resolveSlackWebhookUrl() {
+  // Prefer secret (if available)
+  const fromEnv = process.env.SLACK_WEBHOOK_URL;
+  if (fromEnv && fromEnv.startsWith('https://')) return fromEnv;
+
+  // Fallback: Firestore config doc
+  try {
+    const cfgSnap = await db.doc('config/slack').get();
+    const url = cfgSnap.get('webhookUrl');
+    if (url && typeof url === 'string' && url.startsWith('https://')) return url;
+  } catch (e) {
+    logger.warn('No Slack webhook in Firestore config', String(e));
+  }
+  throw new Error('Slack webhook URL not configured. Set secret SLACK_WEBHOOK_URL or create doc config/slack{webhookUrl}');
+}
 
 exports.onContactCreated = onDocumentCreated(
   {
@@ -56,7 +73,8 @@ exports.onContactCreated = onDocumentCreated(
     };
 
     try {
-      const resp = await fetch(SLACK_WEBHOOK_URL.value(), {
+      const webhookUrl = await resolveSlackWebhookUrl();
+      const resp = await fetch(webhookUrl, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
