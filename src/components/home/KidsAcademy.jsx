@@ -251,10 +251,10 @@ const KidsAcademy = () => {
           spots available for our next session.
         </p>
         <div className="flex justify-center gap-4">
-          <button className="btn btn-primary bg-orange-500 hover:bg-orange-600 transition-colors duration-300 text-white font-semibold py-2 px-4 rounded-sm">
+          <button className="btn btn-primary bg-orange-500 hover:bg-orange-600 transition-colors duration-300 text-white font-semibold py-2 px-4 rounded-sm shadow-md">
             Register Your Child
           </button>
-          <button className="btn btn-outline border border-2-white hover:bg-white/10 transition-colors duration-300 text-white font-semibold py-2 px-4 rounded-sm">
+          <button className="btn btn-outline border border-2-white hover:bg-white/10 transition-colors duration-300 text-white font-semibold py-2 px-4 rounded-sm shadow-md">
             Download Brochure
           </button>
         </div>
