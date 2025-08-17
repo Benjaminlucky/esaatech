@@ -17,13 +17,13 @@ const HeroSection = ({ onOpenContactModal }) => {
       <div className="w-[90%] mx-auto py-4 sm:px-6 lg:px-8 flex flex-col lg:flex-row items-center justify-between gap-8">
         {/* Left Side */}
         <motion.div
-          className="heroLeft w-full lg:w-1/2 flex flex-col items-start justify-center gap-6"
+          className="heroLeft w-full lg:w-1/2 md:w-full flex flex-col items-start justify-center gap-6"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1 }}
         >
           <div className="content flex flex-col justify-center  py-4 lg:py-46">
-            <h1 className="text-3xl  text-center lg:text-left md:text-6xl text-white font-bold leading-[1.2]">
+            <h1 className="text-3xl  text-center  lg:text-left md:text-6xl text-white font-bold leading-[1.2]">
               Your Partner in Cyber Readiness, Security, and AI Transformation
             </h1>
             <p className="text-[12px] text-center md:text-left md:text-lg text-blue-100 mt-6">
@@ -31,16 +31,16 @@ const HeroSection = ({ onOpenContactModal }) => {
               cutting-edge AI innovation to protect your business and accelerate
               your digital transformation journey.
             </p>
-            <div className="buttons w-full mx-auto flex flex-col  sm:flex-row items-start sm:items-center gap-4 mt-8">
+            <div className="buttons w-full mx-auto flex flex-col md:flex-col lg:flex-row  sm:flex-row items-start sm:items-center gap-4 mt-8">
               <Link
                 to="#"
-                className="bg-orange-500 w-full md:w-fit text-center  text-white px-3 md:px-6 py-3 rounded-sm hover:bg-orange-600 transition-colors duration-300 text-lg font-semibold"
+                className="bg-orange-500 w-full  lg:w-fit text-center  text-white px-3 md:px-6 py-3 rounded-sm hover:bg-orange-600 transition-colors duration-300 text-lg font-semibold"
               >
                 BOOK A FREE CONSULTATION
               </Link>
               <Link
                 to="#"
-                className="bg-white text-navy-700 w-full md:w-fit text-center px-3 md:px-6 py-3 rounded-sm hover:bg-blue-100 transition-colors duration-300 text-lg font-semibold"
+                className="bg-white text-navy-700 w-full lg:w-fit text-center px-3 md:px-6 py-3 rounded-sm hover:bg-blue-100 transition-colors duration-300 text-lg font-semibold"
               >
                 ASSESS YOUR CYBER READINESS
               </Link>

@@ -27,10 +27,13 @@ function Home() {
       >
         <KidsAcademy />
       </div>
-      <div id="case-studies" className="hero__wrapper min-h-screen bg-blue-600">
+      <div
+        id="case-studies"
+        className="hero__wrapper min-h-screen bg-gradient-to-t from-[#020814] to-[#00798F]"
+      >
         <CaseStudies />
       </div>
-      <div id="tools" className="hero__wrapper min-h-screen bg-orange-700">
+      <div id="tools" className="hero__wrapper min-h-screen bg-[#020814]">
         <ToolsResources />
       </div>
     </div>

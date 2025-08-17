@@ -27,6 +27,7 @@ function CoreServices() {
 
   return (
     <section className="py-12 lg:py-36 w-full text-white">
+      {/* Section Header */}
       <div className="text-center w-11/12 mx-auto mb-12">
         <div className="titlewrap mb:16 lg:mb-24">
           <h2 className="title">Our Core Services</h2>
@@ -37,8 +38,9 @@ function CoreServices() {
         </div>
       </div>
 
+      {/* Services Grid */}
       <motion.div
-        className="grid md:grid-cols-3 gap-8 max-w-7xl mx-auto px-4"
+        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto px-4"
         variants={containerVariants}
         initial="hidden"
         whileInView="visible"
@@ -73,9 +75,9 @@ function CoreServices() {
               }}
             ></div>
 
-            {/* Glassmorphism card */}
+            {/* Glassmorphism Card */}
             <div className="relative z-10 bg-white/10 backdrop-blur-lg border border-white/20 rounded-2xl flex flex-col h-full overflow-hidden shadow-lg shadow-black/40">
-              {/* Image with chiseled glass effect */}
+              {/* Image */}
               <div
                 className="relative w-11/12 mx-auto my-6 rounded-xl overflow-hidden"
                 style={{

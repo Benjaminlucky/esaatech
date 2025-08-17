@@ -55,9 +55,9 @@ const KidsAcademy = () => {
     },
   ];
 
-  // Animation variants for section
+  // === Animation Variants ===
   const sectionVariants = {
-    hidden: { opacity: 0, y: 50 },
+    hidden: { opacity: 0, y: 80 },
     visible: {
       opacity: 1,
       y: 0,
@@ -65,22 +65,15 @@ const KidsAcademy = () => {
     },
   };
 
-  // Animation variants for container
   const containerVariants = {
-    hidden: { opacity: 0 },
+    hidden: {},
     visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.3,
-        duration: 0.8,
-        ease: [0.6, -0.05, 0.01, 0.99],
-      },
+      transition: { staggerChildren: 0.3 },
     },
   };
 
-  // Animation variants for zoom-in and hover for cards
   const cardVariants = {
-    hidden: { opacity: 0, scale: 0.9, y: 20 },
+    hidden: { opacity: 0, scale: 0.9, y: 50 },
     visible: {
       opacity: 1,
       scale: 1,
@@ -88,13 +81,13 @@ const KidsAcademy = () => {
       transition: { duration: 0.8, ease: [0.6, -0.05, 0.01, 0.99] },
     },
     hover: {
-      scale: 1.03,
+      scale: 1.05,
       rotate: 1,
-      transition: { duration: 0.3, ease: "easeOut" },
+      boxShadow: "0px 8px 30px rgba(255, 255, 255, 0.25)",
+      transition: { duration: 0.4, ease: "easeOut" },
     },
   };
 
-  // Animation variants for carousel
   const carouselVariants = {
     animate: {
       x: ["0%", "-100%"],
@@ -102,21 +95,29 @@ const KidsAcademy = () => {
         x: {
           repeat: Infinity,
           repeatType: "loop",
-          duration: 25,
+          duration: 30,
           ease: "linear",
         },
       },
     },
   };
 
-  // Animation variants for carousel items
   const carouselItemVariants = {
-    hidden: { opacity: 0, scale: 0.9, y: 20 },
+    hidden: { opacity: 0, scale: 0.9 },
     visible: {
       opacity: 1,
       scale: 1,
+      transition: { duration: 0.8 },
+    },
+  };
+
+  const ctaVariants = {
+    hidden: { opacity: 0, y: 40, scale: 0.95 },
+    visible: {
+      opacity: 1,
       y: 0,
-      transition: { duration: 0.8, ease: [0.6, -0.05, 0.01, 0.99] },
+      scale: 1,
+      transition: { duration: 0.9, ease: "easeOut", delay: 0.3 },
     },
   };
 
@@ -134,17 +135,29 @@ const KidsAcademy = () => {
         className="text-center w-11/12 mx-auto mb-12"
         variants={cardVariants}
       >
-        <h2 className="title mb-4">Code Cubs</h2>
-        <p className="description max-w-xl mx-auto">
+        <motion.h2
+          className="title mb-4"
+          initial={{ opacity: 0, y: -30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+        >
+          Code Cubs
+        </motion.h2>
+        <motion.p
+          className="description max-w-xl mx-auto"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ duration: 1, delay: 0.3 }}
+        >
           Empowering the next generation with essential digital skills and cyber
           safety knowledge. Our age-appropriate programs make learning
           technology fun, safe, and engaging.
-        </p>
+        </motion.p>
       </motion.div>
 
       {/* Programs */}
       <motion.div
-        className="grid sm:grid-cols-2 md:grid-cols-3 gap-8 max-w-7xl mx-auto px-4"
+        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto px-4"
         variants={containerVariants}
       >
         {programs.map((program) => (
@@ -152,16 +165,13 @@ const KidsAcademy = () => {
             key={program.id}
             className="relative rounded-2xl overflow-hidden group"
             variants={cardVariants}
-            initial="hidden"
-            animate="visible"
             whileHover="hover"
-            style={{ willChange: "transform, opacity" }}
           >
             {/* Glow Background */}
             <div
               className="absolute inset-0"
               style={{
-                background: `radial-gradient(circle at center, rgba(255,255,255,0.1), rgba(0,0,0,0.2))`,
+                background: `radial-gradient(circle at center, rgba(255,255,255,0.12), rgba(0,0,0,0.25))`,
                 filter: "blur(30px)",
                 transform: "scale(1.15)",
               }}
@@ -170,14 +180,14 @@ const KidsAcademy = () => {
             {/* Glassmorphic Card */}
             <div className="relative z-10 bg-white/10 backdrop-blur-lg border border-white/20 rounded-2xl flex flex-col h-full overflow-hidden shadow-lg shadow-black/40 p-6">
               <div className="flex flex-col flex-1">
-                <h4 className="cardTitle py-3 font-bold mb-3">
+                <h4 className="cardTitle py-3 font-bold mb-3 text-lg text-orange-300">
                   {program.title}
                 </h4>
-                <div className="text-sm text-gray-50 mb-2 py-5">
-                  <span className="mr-3 bg-orange-400/50 backdrop-blur-lg shadow-md px-3 py-2 rounded-sm">
+                <div className="text-sm text-gray-50 mb-4 flex flex-wrap gap-2">
+                  <span className="bg-orange-400/50 backdrop-blur-lg shadow-md px-3 py-1 rounded-sm">
                     {program.age}
-                  </span>{" "}
-                  <span className="ml-3 bg-blue-400/50 backdrop-blur-lg shadow-md px-3 py-2 rounded-sm">
+                  </span>
+                  <span className="bg-blue-400/50 backdrop-blur-lg shadow-md px-3 py-1 rounded-sm">
                     {program.duration}
                   </span>
                 </div>
@@ -187,23 +197,24 @@ const KidsAcademy = () => {
                 <ul className="text-sm text-gray-200 flex-1 space-y-1">
                   {program.topics.map((topic, idx) => (
                     <li key={idx} className="flex items-center gap-2 py-1">
-                      <FaCircleCheck />
+                      <FaCircleCheck className="text-orange-400" />
                       {topic}
                     </li>
                   ))}
                 </ul>
-                <button
-                  className="mt-6 text-white font-semibold py-2 px-4 rounded-lg transition backdrop-blur-sm hover:scale-105"
+                <motion.button
+                  whileHover={{ scale: 1.07 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="mt-6 text-white font-semibold py-2 px-4 rounded-lg transition"
                   style={{
                     backgroundColor:
                       "rgba(243, 155, 22, 0.55) backdrop-blur-lg shadow-md",
                     boxShadow: "0 4px 20px rgba(0, 0, 0, 0.25)",
                     border: "1px solid rgba(255, 255, 255, 0.3)",
-                    textShadow: "0px 0px 6px rgba(0,0,0,0.4)",
                   }}
                 >
                   Enroll Now
-                </button>
+                </motion.button>
               </div>
             </div>
           </motion.div>
@@ -211,8 +222,13 @@ const KidsAcademy = () => {
       </motion.div>
 
       {/* Testimonials Carousel */}
-      <motion.div className="mt-20" variants={cardVariants}>
-        <h3 className="text-center text-2xl font-semibold mb-6">
+      <motion.div
+        className="mt-20"
+        variants={containerVariants}
+        initial="hidden"
+        whileInView="visible"
+      >
+        <h3 className="text-center text-2xl font-semibold mb-6 text-orange-300">
           What Kids Say
         </h3>
         <div className="overflow-hidden relative max-w-4xl mx-auto">
@@ -222,42 +238,55 @@ const KidsAcademy = () => {
             animate="animate"
             style={{ width: "200%", willChange: "transform" }}
           >
-            {[...testimonials, ...testimonials, ...testimonials].map(
-              (testimonial, idx) => (
-                <motion.div
-                  key={idx}
-                  className="min-w-[300px] bg-white/10 backdrop-blur-lg border border-white/20 rounded-xl p-4 mx-3 shadow-md"
-                  variants={carouselItemVariants}
-                  initial="hidden"
-                  animate="visible"
-                >
-                  <p className="text-body text-sm mb-2">{testimonial.quote}</p>
-                  <div className="testimonial-author text-xs  text-gray-300">
-                    <strong>{testimonial.name}</strong> {testimonial.age} years
-                    old
-                  </div>
-                </motion.div>
-              )
-            )}
+            {[...testimonials, ...testimonials].map((testimonial, idx) => (
+              <motion.div
+                key={idx}
+                className="min-w-[300px] bg-white/10 backdrop-blur-lg border border-white/20 rounded-xl p-4 mx-3 shadow-md"
+                variants={carouselItemVariants}
+              >
+                <p className="text-body text-sm mb-2">{testimonial.quote}</p>
+                <div className="testimonial-author text-xs text-gray-300">
+                  <strong>{testimonial.name}</strong> ({testimonial.age} yrs)
+                </div>
+              </motion.div>
+            ))}
           </motion.div>
         </div>
       </motion.div>
 
       {/* CTA */}
-      <motion.div className="text-center mt-16" variants={cardVariants}>
-        <h3 className="text-2xl font-semibold mb-4">Ready to Get Started?</h3>
+      <motion.div
+        className="text-center w-10/12 mx-auto mt-16"
+        variants={ctaVariants}
+        initial="hidden"
+        whileInView="visible"
+      >
+        <h3 className="text-2xl font-semibold mb-4 text-orange-300">
+          Ready to Get Started?
+        </h3>
         <p className="max-w-lg mx-auto text-gray-300 mb-6">
           Give your child the digital skills they need for the future. Limited
           spots available for our next session.
         </p>
-        <div className="flex justify-center gap-4">
-          <button className="btn btn-primary bg-orange-500 hover:bg-orange-600 transition-colors duration-300 text-white font-semibold py-2 px-4 rounded-sm shadow-md">
+        <motion.div
+          className="flex w-10/12 mx-auto flex-col md:flex-row justify-center  gap-4"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ delay: 0.6 }}
+        >
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            className="btn btn-primary bg-orange-500 hover:bg-orange-600 transition-colors duration-300 text-white font-semibold py-2 px-4 rounded-sm shadow-md"
+          >
             Register Your Child
-          </button>
-          <button className="btn btn-outline border border-2-white hover:bg-white/10 transition-colors duration-300 text-white font-semibold py-2 px-4 rounded-sm shadow-md">
+          </motion.button>
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            className="btn btn-outline border border-2-white hover:bg-white/10 transition-colors duration-300 text-white font-semibold py-2 px-4 rounded-sm shadow-md"
+          >
             Download Brochure
-          </button>
-        </div>
+          </motion.button>
+        </motion.div>
       </motion.div>
     </motion.section>
   );
