@@ -1,12 +1,26 @@
-import React from "react";
-import { motion } from "motion/react";
+import React, { useState } from "react";
+import { motion } from "framer-motion"; // ✅ fix import (was motion/react)
 import heroBg from "../../../public/heroBg.png";
 import cyberImage from "../../../public/cyberImage.png";
 import automationImage from "../../../public/automationImage.png";
 import consultingImage from "../../../public/consultingImage.png";
-import { Link } from "react-router-dom";
+import ContactModal from "../ContactModal"; // ✅ fix import path
 
-const HeroSection = ({ onOpenContactModal }) => {
+const HeroSection = () => {
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [active, setActive] = useState("home");
+  const [isContactModalOpen, setIsContactModalOpen] = useState(false);
+  const [contactModalTab, setContactModalTab] = useState("message");
+
+  const openContactModal = (tab = "message") => {
+    setContactModalTab(tab);
+    setIsContactModalOpen(true);
+  };
+
+  const closeContactModal = () => {
+    setIsContactModalOpen(false);
+  };
+
   return (
     <section
       className="hero-section bg-cover w-full min-h-screen bg-center bg-no-repeat"
@@ -22,28 +36,26 @@ const HeroSection = ({ onOpenContactModal }) => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1 }}
         >
-          <div className="content flex flex-col justify-center  py-4 lg:py-46">
-            <h1 className="text-3xl  text-center  lg:text-left md:text-6xl text-white font-bold leading-[1.2]">
+          <div className="content flex flex-col justify-center py-4 lg:py-46">
+            <h1 className="text-3xl sm:text-center lg:text-left md:text-6xl text-white font-bold leading-[1.2]">
               Your Partner in Cyber Readiness, Security, and AI Transformation
             </h1>
-            <p className="text-[12px] text-center md:text-left md:text-lg text-blue-100 mt-6">
+            <p className="text-[12px] sm:text-center md:text-left md:text-lg text-blue-100 mt-6">
               We combine proactive defense strategies, expert consulting, and
               cutting-edge AI innovation to protect your business and accelerate
               your digital transformation journey.
             </p>
-            <div className="buttons w-full mx-auto flex flex-col md:flex-col lg:flex-row  sm:flex-row items-start sm:items-center gap-4 mt-8">
-              <Link
-                to="#"
-                className="bg-orange-500 w-full  lg:w-fit text-center  text-white px-3 md:px-6 py-3 rounded-sm hover:bg-orange-600 transition-colors duration-300 text-lg font-semibold"
+            <div className="buttons w-full mx-auto flex flex-col md:flex-col lg:flex-row sm:flex-row items-start sm:items-center gap-4 mt-8">
+              {/* ✅ Fixed: Button now opens modal */}
+              <button
+                onClick={() => openContactModal("appointment")}
+                className="bg-orange-500 w-full lg:w-fit text-center text-white px-3 md:px-6 py-3 rounded-sm hover:bg-orange-600 transition-colors duration-300 text-lg font-semibold"
               >
                 BOOK A FREE CONSULTATION
-              </Link>
-              <Link
-                to="#"
-                className="bg-white text-navy-700 w-full lg:w-fit text-center px-3 md:px-6 py-3 rounded-sm hover:bg-blue-100 transition-colors duration-300 text-lg font-semibold"
-              >
+              </button>
+              <button className="bg-white text-navy-700 w-full lg:w-fit text-center px-3 md:px-6 py-3 rounded-sm hover:bg-blue-100 transition-colors duration-300 text-lg font-semibold">
                 ASSESS YOUR CYBER READINESS
-              </Link>
+              </button>
             </div>
           </div>
         </motion.div>
@@ -55,7 +67,7 @@ const HeroSection = ({ onOpenContactModal }) => {
             className="cyber"
             initial={{ opacity: 0, y: 20, scale: 1 }}
             animate={{
-              opacity: 1, // stays visible
+              opacity: 1,
               y: [0, -10, 0],
               scale: [1, 1.05, 1],
             }}
@@ -72,7 +84,7 @@ const HeroSection = ({ onOpenContactModal }) => {
                 repeatType: "loop",
                 ease: "easeInOut",
               },
-              opacity: { duration: 1 }, // only fades in once
+              opacity: { duration: 1 },
             }}
           >
             <img src={cyberImage} alt="Cyber Attack Readiness" />
@@ -136,6 +148,13 @@ const HeroSection = ({ onOpenContactModal }) => {
           </div>
         </div>
       </div>
+
+      {/* ✅ Contact Modal injected here */}
+      <ContactModal
+        isOpen={isContactModalOpen}
+        onClose={closeContactModal}
+        initialTab={contactModalTab}
+      />
     </section>
   );
 };

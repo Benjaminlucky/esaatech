@@ -26,3 +26,25 @@ body {
 .cardTitle {
   @apply text-xl lg:text-3xl font-bold text-white tracking-tight;
 }
+
+input {
+  outline: none !important;
+}
+
+textarea {
+  outline: none !important;
+}
+
+button {
+  outline: none !important;
+}
+
+/* Hide scrollbar for Chrome, Safari, Edge */
+body::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for Firefox */
+body {
+  scrollbar-width: none; /* Firefox */
+}

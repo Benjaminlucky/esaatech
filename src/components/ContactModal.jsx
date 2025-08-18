@@ -1,44 +1,43 @@
-import React, { useState, useEffect } from 'react';
-import { submitContactForm } from '../services/contactService';
-import './ContactModal.css';
+import React, { useState, useEffect } from "react";
+import { motion } from "framer-motion";
+import { FaCircleCheck } from "react-icons/fa6";
+import { submitContactForm } from "../services/contactService";
+// import "../global.css";
+import "./ContactModal.css";
+import { FaPhoneAlt } from "react-icons/fa";
+import { MdEmail } from "react-icons/md";
+import { FaMessage } from "react-icons/fa6";
+import { FaCalendarDay } from "react-icons/fa6";
 
-const ContactModal = ({ isOpen, onClose, initialTab = 'message' }) => {
-  const [activeTab, setActiveTab] = useState(initialTab); // 'message' or 'appointment'
+const ContactModal = ({ isOpen, onClose, initialTab = "message" }) => {
+  const [activeTab, setActiveTab] = useState(initialTab);
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    company: '',
-    message: ''
+    name: "",
+    email: "",
+    company: "",
+    message: "",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitStatus, setSubmitStatus] = useState(null); // 'success', 'error', null
+  const [submitStatus, setSubmitStatus] = useState(null);
 
   // Reset active tab when modal opens with new initialTab
   useEffect(() => {
-    if (isOpen) {
-      setActiveTab(initialTab);
-    }
+    if (isOpen) setActiveTab(initialTab);
   }, [isOpen, initialTab]);
 
   // Load Calendly script when appointment tab is active
   useEffect(() => {
-    if (activeTab === 'appointment' && isOpen) {
-      // Load Calendly script if not already loaded
-      if (!window.Calendly) {
-        const script = document.createElement('script');
-        script.src = 'https://assets.calendly.com/assets/external/widget.js';
-        script.async = true;
-        document.body.appendChild(script);
-      }
+    if (activeTab === "appointment" && isOpen && !window.Calendly) {
+      const script = document.createElement("script");
+      script.src = "https://assets.calendly.com/assets/external/widget.js";
+      script.async = true;
+      document.body.appendChild(script);
     }
   }, [activeTab, isOpen]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleSubmit = async (e) => {
@@ -48,17 +47,16 @@ const ContactModal = ({ isOpen, onClose, initialTab = 'message' }) => {
 
     try {
       await submitContactForm(formData);
-      setSubmitStatus('success');
-      setFormData({ name: '', email: '', company: '', message: '' });
-      
-      // Close modal after 2 seconds
+      setSubmitStatus("success");
+      setFormData({ name: "", email: "", company: "", message: "" });
+
       setTimeout(() => {
         onClose();
         setSubmitStatus(null);
       }, 2000);
     } catch (error) {
-      setSubmitStatus('error');
-      console.error('Form submission error:', error);
+      setSubmitStatus("error");
+      console.error("Form submission error:", error);
     } finally {
       setIsSubmitting(false);
     }
@@ -66,212 +64,205 @@ const ContactModal = ({ isOpen, onClose, initialTab = 'message' }) => {
 
   if (!isOpen) return null;
 
+  // Animations
+  const modalVariants = {
+    hidden: { opacity: 0, y: 50, scale: 0.95 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      transition: { duration: 0.5, ease: [0.25, 0.1, 0.25, 1] },
+    },
+    exit: { opacity: 0, y: 40, transition: { duration: 0.3 } },
+  };
+
   return (
-    <div className="contact-modal-overlay" onClick={onClose}>
-      <div className="contact-modal" onClick={(e) => e.stopPropagation()}>
-        <button className="modal-close" onClick={onClose}>
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-            <line x1="18" y1="6" x2="6" y2="18"></line>
-            <line x1="6" y1="6" x2="18" y2="18"></line>
-          </svg>
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-md p-4">
+      <motion.div
+        className="relative w-full max-w-4xl rounded-2xl overflow-hidden shadow-lg bg-white/10 backdrop-blur-lg border border-white/20 text-white"
+        variants={modalVariants}
+        initial="hidden"
+        animate="visible"
+        exit="exit"
+        onClick={(e) => e.stopPropagation()}
+      >
+        {/* Close Button */}
+        <button
+          onClick={onClose}
+          className="absolute top-4 right-4 text-white/80 hover:text-white"
+        >
+          ✕
         </button>
 
-        <div className="modal-header">
-          <h2 className="text-secondary">Get in Touch</h2>
-          <div className="contact-info">
-            <div className="contact-item">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
-              </svg>
+        {/* Header */}
+        <div className="p-6 border-b border-white/10">
+          <h2 className="text-2xl font-bold text-secondary">Get in Touch</h2>
+          <div className="flex flex-col sm:flex-row gap-4 mt-4 text-sm">
+            <div className="flex items-center gap-2">
+              <span className="w-7 h-7 flex  items-center justify-center rounded-full bg-orange-500/70">
+                <FaPhoneAlt className="" />
+              </span>
               <span>+1 (555) 123-4567</span>
             </div>
-            <div className="contact-item">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
-                <polyline points="22,6 12,13 2,6"></polyline>
-              </svg>
+            <div className="flex items-center gap-2">
+              <span className="w-7 h-7  flex items-center justify-center rounded-full bg-orange-500/70">
+                <MdEmail />
+              </span>
               <span>contact@esaaconsulting.com</span>
             </div>
           </div>
         </div>
 
-        <div className="modal-tabs">
-          <button 
-            className={`tab-button ${activeTab === 'message' ? 'active' : ''}`}
-            onClick={() => setActiveTab('message')}
+        {/* Tabs */}
+        <div className="flex border-b border-white/10">
+          <button
+            className={`flex-1 py-3 text-center ${
+              activeTab === "message"
+                ? "bg-orange-500/70 text-white font-semibold"
+                : "hover:bg-white/10"
+            }`}
+            onClick={() => setActiveTab("message")}
           >
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
-            </svg>
-            Send Message
+            <span className="flex items-center justify-center gap-2">
+              <FaMessage />
+              Send Message
+            </span>
           </button>
-          <button 
-            className={`tab-button ${activeTab === 'appointment' ? 'active' : ''}`}
-            onClick={() => setActiveTab('appointment')}
+          <button
+            className={`flex-1 py-3 text-center ${
+              activeTab === "appointment"
+                ? "bg-orange-500/70 text-white font-semibold"
+                : "hover:bg-white/10"
+            }`}
+            onClick={() => setActiveTab("appointment")}
           >
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
-              <line x1="16" y1="2" x2="16" y2="6"></line>
-              <line x1="8" y1="2" x2="8" y2="6"></line>
-              <line x1="3" y1="10" x2="21" y2="10"></line>
-            </svg>
-            Book Appointment
+            <span className="flex items-center justify-center gap-2">
+              <FaCalendarDay />
+              Book Appointment
+            </span>
           </button>
         </div>
 
-        <div className="modal-content">
-          {activeTab === 'message' && (
-            <form onSubmit={handleSubmit} className="contact-form">
-              {submitStatus === 'success' && (
-                <div className="form-success">
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <polyline points="20,6 9,17 4,12"></polyline>
-                  </svg>
-                  <p>Thank you for your message! We'll get back to you soon.</p>
+        {/* Content */}
+        <div className="p-6 max-h-[80vh] overflow-y-auto">
+          {/* Message Form */}
+          {activeTab === "message" && (
+            <form onSubmit={handleSubmit} className="space-y-4">
+              {submitStatus === "success" && (
+                <div className="flex items-center gap-2 p-3 bg-green-500/20 border border-green-400 rounded-lg text-green-300">
+                  <FaCircleCheck />
+                  <p>Thank you! We'll get back to you soon.</p>
+                </div>
+              )}
+              {submitStatus === "error" && (
+                <div className="flex items-center gap-2 p-3 bg-red-500/20 border border-red-400 rounded-lg text-red-300">
+                  ❌ <p>Failed to send. Please try again.</p>
                 </div>
               )}
 
-              {submitStatus === 'error' && (
-                <div className="form-error">
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <circle cx="12" cy="12" r="10"></circle>
-                    <line x1="15" y1="9" x2="9" y2="15"></line>
-                    <line x1="9" y1="9" x2="15" y2="15"></line>
-                  </svg>
-                  <p>Failed to send message. Please try again.</p>
-                </div>
-              )}
-
-              <div className="form-group">
-                <label htmlFor="name" className="form-label">Full Name *</label>
+              <div>
+                <label className="block mb-1 text-sm">Full Name *</label>
                 <input
                   type="text"
-                  id="name"
                   name="name"
                   value={formData.name}
                   onChange={handleInputChange}
                   required
-                  className="form-input"
-                  placeholder="Enter your full name"
                   disabled={isSubmitting}
+                  className="w-full px-3 py-2 rounded-md bg-white/10 border border-white/20 text-white focus:outline-none focus:ring-2 focus:ring-orange-400"
                 />
               </div>
 
-              <div className="form-group">
-                <label htmlFor="email" className="form-label">Email Address *</label>
+              <div>
+                <label className="block mb-1 text-sm">Email Address *</label>
                 <input
                   type="email"
-                  id="email"
                   name="email"
                   value={formData.email}
                   onChange={handleInputChange}
                   required
-                  className="form-input"
-                  placeholder="Enter your email address"
                   disabled={isSubmitting}
+                  className="w-full px-3 py-2 rounded-md bg-white/10 border border-white/20 text-white focus:outline-none focus:ring-2 focus:ring-orange-400"
                 />
               </div>
 
-              <div className="form-group">
-                <label htmlFor="company" className="form-label">Company</label>
+              <div>
+                <label className="block mb-1 text-sm">Company</label>
                 <input
                   type="text"
-                  id="company"
                   name="company"
                   value={formData.company}
                   onChange={handleInputChange}
-                  className="form-input"
-                  placeholder="Enter your company name (optional)"
                   disabled={isSubmitting}
+                  className="w-full px-3 py-2 rounded-md bg-white/10 border border-white/20 text-white focus:outline-none focus:ring-2 focus:ring-orange-400"
                 />
               </div>
 
-              <div className="form-group">
-                <label htmlFor="message" className="form-label">Message *</label>
+              <div>
+                <label className="block mb-1 text-sm">Message *</label>
                 <textarea
-                  id="message"
                   name="message"
                   value={formData.message}
                   onChange={handleInputChange}
                   required
-                  className="form-textarea"
-                  placeholder="Tell us about your project or how we can help..."
                   rows="5"
                   disabled={isSubmitting}
+                  className="w-full px-3 py-2 rounded-md bg-white/10 border border-white/20 text-white focus:outline-none focus:ring-2 focus:ring-orange-400"
                 ></textarea>
               </div>
 
-              <button 
-                type="submit" 
-                className="btn btn-primary btn-full"
+              <button
+                type="submit"
                 disabled={isSubmitting}
+                className="w-full py-3 rounded-md font-semibold text-white transition hover:scale-105"
+                style={{
+                  backgroundColor: "rgba(243, 155, 22, 0.55)",
+                  boxShadow: "0 4px 20px rgba(0,0,0,0.25)",
+                  border: "1px solid rgba(255,255,255,0.3)",
+                }}
               >
-                {isSubmitting ? (
-                  <>
-                    <svg className="spinner" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                      <path d="M21 12a9 9 0 11-6.219-8.56"></path>
-                    </svg>
-                    Sending...
-                  </>
-                ) : (
-                  'Send Message'
-                )}
+                {isSubmitting ? "Sending..." : "Send Message"}
               </button>
             </form>
           )}
 
-          {activeTab === 'appointment' && (
-            <div className="appointment-content">
-              <div className="appointment-info">
-                <div className="appointment-icon">
-                  <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
-                    <line x1="16" y1="2" x2="16" y2="6"></line>
-                    <line x1="8" y1="2" x2="8" y2="6"></line>
-                    <line x1="3" y1="10" x2="21" y2="10"></line>
-                  </svg>
-                </div>
-                <h3 className="text-tertiary">Schedule a Consultation</h3>
-                <p className="text-body">
-                  Book a free 30-minute consultation to discuss your cybersecurity, AI implementation, 
-                  or digital transformation needs. We'll help you identify the best solutions for your business.
-                </p>
-                
-                <div className="appointment-benefits">
-                  <div className="benefit-item">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                      <polyline points="20,6 9,17 4,12"></polyline>
-                    </svg>
-                    <span>Free 30-minute consultation</span>
-                  </div>
-                  <div className="benefit-item">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                      <polyline points="20,6 9,17 4,12"></polyline>
-                    </svg>
-                    <span>No obligation or pressure</span>
-                  </div>
-                  <div className="benefit-item">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                      <polyline points="20,6 9,17 4,12"></polyline>
-                    </svg>
-                    <span>Expert guidance and recommendations</span>
-                  </div>
-                </div>
-              </div>
+          {/* Appointment */}
+          {activeTab === "appointment" && (
+            <div className="space-y-6">
+              <h3 className="text-xl font-semibold text-tertiary">
+                Schedule a Consultation
+              </h3>
+              <p className="text-sm text-gray-200">
+                Book a free 30-minute consultation to discuss your
+                cybersecurity, AI implementation, or digital transformation
+                needs.
+              </p>
+
+              <ul className="space-y-2 text-sm">
+                {[
+                  "Free 30-minute consultation",
+                  "No obligation or pressure",
+                  "Expert guidance and recommendations",
+                ].map((benefit, idx) => (
+                  <li key={idx} className="flex items-center gap-2">
+                    <FaCircleCheck className="text-orange-400" /> {benefit}
+                  </li>
+                ))}
+              </ul>
 
               <div className="calendly-embed-container">
-                <div 
-                  className="calendly-inline-widget" 
+                <div
+                  className="calendly-inline-widget rounded-xl overflow-hidden"
                   data-url="https://calendly.com/esaatechnology/new-meeting"
-                  style={{ minWidth: '320px', height: '600px' }}
+                  style={{ minWidth: "320px", height: "600px" }}
                 ></div>
               </div>
             </div>
           )}
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 };
 
-export default ContactModal; 
+export default ContactModal;

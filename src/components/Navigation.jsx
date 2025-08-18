@@ -29,7 +29,7 @@ const Navigation = () => {
     { id: "cyber-security", label: "Cyber Security & Compliance Training" },
     { id: "devops", label: "Professional DevOps Engineer Training" },
     {
-      id: "kids-academy",
+      id: "KidsAcademy",
       label: "Code Cubs - Young Learners Growing Coding Skills",
     },
     { id: "project-management", label: "IT Project Management Training" },
