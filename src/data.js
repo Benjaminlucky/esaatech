@@ -18,6 +18,7 @@ export const services = [
       "Incident response planning",
     ],
     img: "../../../security.jpg",
+    link: "/services/cyber-attack-readiness",
     gradient: {
       colors: ["#FF6E14E6", "#0A3D62B3", "#00D8FFCC"],
     },
@@ -31,6 +32,7 @@ export const services = [
       "Compliance & governance",
     ],
     img: "../../../consulting.jpg",
+    link: "/services/cyber-security-consulting",
     gradient: {
       colors: ["#00D8FFE6", "#FF6E14B3", "#0A3D62CC"],
     },
@@ -45,6 +47,7 @@ export const services = [
       "System integration",
     ],
     img: "../../../aiAutomation.jpeg",
+    link: "/services/ai-implementation",
     gradient: {
       colors: ["#0A3D62E6", "#00D8FFB3", "#FF6E14CC"],
     },

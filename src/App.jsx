@@ -12,6 +12,9 @@ import Footer from "./components/home/Footer";
 import ContactModal from "./components/ContactModal";
 import HeaderNavigation from "./components/HeaderNavigation";
 import Home from "./pages/Home";
+import CyberAttackReadiness from "./pages/CyberAttackReadiness";
+import CyberSecurityConsulting from "./pages/CyberSecurityConsulting";
+import AiImplementation from "./pages/AiImplementation";
 
 function App() {
   const [isContactModalOpen, setIsContactModalOpen] = useState(false);
@@ -31,6 +34,18 @@ function App() {
       <Navigation />
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route
+          path="/services/cyber-attack-readiness"
+          element={<CyberAttackReadiness />}
+        />
+        <Route
+          path="/services/cyber-security-consulting"
+          element={<CyberSecurityConsulting />}
+        />
+        <Route
+          path="/services/ai-implementation"
+          element={<AiImplementation />}
+        />
       </Routes>
       <Footer />
     </Router>

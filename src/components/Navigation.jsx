@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Link as ScrollLink } from "react-scroll";
+import { scroller } from "react-scroll";
+import { useLocation, useNavigate } from "react-router-dom";
 import { FaBars, FaTimes } from "react-icons/fa";
 import { AnimatePresence, motion } from "motion/react";
 import ContactModal from "./ContactModal";
@@ -12,10 +13,11 @@ const Navigation = () => {
   const [isContactModalOpen, setIsContactModalOpen] = useState(false);
   const [isTrainingDropdownOpen, setIsTrainingDropdownOpen] = useState(false);
 
-  // Small delay so dropdown doesn't instantly close on tiny mouse gaps
   const hoverTimer = useRef(null);
-
   const scrollOffset = -120;
+
+  const location = useLocation();
+  const navigate = useNavigate();
 
   const navItems = [
     { id: "home", label: "Home" },
@@ -63,6 +65,27 @@ const Navigation = () => {
     }, 120);
   };
 
+  // Handle scrolling or routing first if needed
+  const handleNavClick = (id) => {
+    if (location.pathname !== "/") {
+      navigate("/");
+      setTimeout(() => scrollToSection(id), 200);
+    } else {
+      scrollToSection(id);
+    }
+    setMenuOpen(false);
+    setIsTrainingDropdownOpen(false);
+  };
+
+  const scrollToSection = (id) => {
+    scroller.scrollTo(id, {
+      smooth: true,
+      duration: 500,
+      offset: scrollOffset,
+    });
+    setActive(id);
+  };
+
   return (
     <>
       <div
@@ -72,32 +95,20 @@ const Navigation = () => {
       >
         <div className="navigation__wrapper flex justify-between items-center w-[90%] mx-auto py-4 sm:px-6 lg:px-8">
           {/* Logo */}
-          <div className="navigation__logo">
-            <ScrollLink
-              to="home"
-              smooth={true}
-              duration={500}
-              offset={scrollOffset}
-              spy={true}
-              onSetActive={(id) => setActive(id)}
-              className="cursor-pointer"
-            >
-              <img src={logo} alt="Logo" className="h-10" />
-            </ScrollLink>
+          <div
+            className="navigation__logo cursor-pointer"
+            onClick={() => handleNavClick("home")}
+          >
+            <img src={logo} alt="Logo" className="h-10" />
           </div>
 
           {/* Desktop Menu */}
           <div className="hidden lg:flex navigation__menu items-center gap-16">
             <div className="navs flex items-center gap-6 uppercase">
               {navItems.map((menu) => (
-                <ScrollLink
+                <div
                   key={menu.id}
-                  to={menu.id}
-                  smooth={true}
-                  duration={500}
-                  offset={scrollOffset}
-                  spy={true}
-                  onSetActive={(id) => setActive(id)}
+                  onClick={() => handleNavClick(menu.id)}
                   className={`cursor-pointer transition-colors duration-300 ${
                     active === menu.id
                       ? "text-blue-400 text-md font-semibold"
@@ -105,7 +116,7 @@ const Navigation = () => {
                   }`}
                 >
                   {menu.label}
-                </ScrollLink>
+                </div>
               ))}
 
               {/* Training Dropdown (Desktop) */}
@@ -134,21 +145,13 @@ const Navigation = () => {
                       className="absolute top-full left-0 mt-2 bg-white shadow-xl rounded-md py-2 w-72 z-50 pointer-events-auto"
                     >
                       {trainingItems.map((item) => (
-                        <ScrollLink
+                        <div
                           key={item.id}
-                          to={item.id}
-                          smooth={true}
-                          duration={500}
-                          offset={scrollOffset}
-                          spy={true}
-                          onClick={() => {
-                            setIsTrainingDropdownOpen(false);
-                            setMenuOpen(false);
-                          }}
+                          onClick={() => handleNavClick(item.id)}
                           className="block px-4 py-2 text-sm text-navy-500 hover:bg-gray-100 cursor-pointer"
                         >
                           {item.label}
-                        </ScrollLink>
+                        </div>
                       ))}
                     </motion.div>
                   )}
@@ -189,15 +192,9 @@ const Navigation = () => {
             >
               <div className="flex flex-col gap-4 uppercase">
                 {navItems.map((menu) => (
-                  <ScrollLink
+                  <div
                     key={menu.id}
-                    to={menu.id}
-                    smooth={true}
-                    duration={500}
-                    offset={scrollOffset}
-                    spy={true}
-                    onSetActive={(id) => setActive(id)}
-                    onClick={() => setMenuOpen(false)}
+                    onClick={() => handleNavClick(menu.id)}
                     className={`cursor-pointer transition-colors duration-300 ${
                       active === menu.id
                         ? "text-blue-400 font-semibold"
@@ -205,7 +202,7 @@ const Navigation = () => {
                     }`}
                   >
                     {menu.label}
-                  </ScrollLink>
+                  </div>
                 ))}
 
                 {/* Mobile Training Items */}
@@ -215,18 +212,13 @@ const Navigation = () => {
                   </summary>
                   <div className="flex flex-col mt-2">
                     {trainingItems.map((item) => (
-                      <ScrollLink
+                      <div
                         key={item.id}
-                        to={item.id}
-                        smooth={true}
-                        duration={500}
-                        offset={scrollOffset}
-                        spy={true}
-                        onClick={() => setMenuOpen(false)}
+                        onClick={() => handleNavClick(item.id)}
                         className="px-4 py-2 text-sm text-navy-500 hover:bg-gray-100 cursor-pointer"
                       >
                         {item.label}
-                      </ScrollLink>
+                      </div>
                     ))}
                   </div>
                 </details>

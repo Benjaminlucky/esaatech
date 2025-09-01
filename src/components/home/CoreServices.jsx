@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { IoIosCheckmarkCircle } from "react-icons/io";
 import "./CoreServices.css";
 import { services } from "../../data";
+import { Link } from "react-router-dom";
 
 function CoreServices() {
   const containerVariants = {
@@ -123,7 +124,7 @@ function CoreServices() {
                     textShadow: "0px 0px 6px rgba(0,0,0,0.4)",
                   }}
                 >
-                  Learn More
+                  <Link to={service.link}>Learn More</Link>
                 </button>
               </div>
             </div>
