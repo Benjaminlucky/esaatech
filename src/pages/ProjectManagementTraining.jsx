@@ -1,73 +1,73 @@
 import React from "react";
 import { motion } from "motion/react";
-import heroImage from "/public/aiAutomationPageHero.jpeg";
+import heroImage from "/public/projectMgtPageHero.jpg";
 import { IoIosCheckmarkCircle } from "react-icons/io";
-import { RiFlowChart } from "react-icons/ri";
+import { ImFlag } from "react-icons/im";
 
-import { RiRobot3Fill } from "react-icons/ri";
+import { DiScrum } from "react-icons/di";
 
-import { IoStatsChart } from "react-icons/io5";
+import { TbPodium } from "react-icons/tb";
 
-import { HiOutlineDocumentSearch } from "react-icons/hi";
+import { MdManageAccounts } from "react-icons/md";
 
-import { AiOutlineApi } from "react-icons/ai";
+import { FaChessRook } from "react-icons/fa";
 
-import { BsRobot } from "react-icons/bs";
+import { RiCustomerService2Fill } from "react-icons/ri";
 
-function AiImplementation() {
+function ProjectManagementTraining() {
   const benefits = [
     {
-      item: "Boosting Efficiency – eliminate repetitive tasks and free your team for higher-value work",
+      item: "Plan Effectively – define scope, timelines, and resources with clarity",
     },
     {
-      item: "Improving Accuracy – reduce costly errors with intelligent decision-making",
+      item: "Collaborate Better – improve team communication and stakeholder alignment",
     },
     {
-      item: "Scaling Operations – automate workflows to handle more customers, data, and tasks without extra headcount",
+      item: "Control Risks – identify challenges early and keep projects on track",
     },
     {
-      item: "Unlocking Insights – turn data into actionable strategies using AI-powered analytics",
+      item: "Boost Efficiency – streamline workflows and eliminate costly delays",
     },
     {
-      item: "Saving Time & Costs – faster processes mean leaner operations and bigger savings",
+      item: "Deliver Results – achieve business goals through structured execution",
     },
   ];
   const services = [
     {
-      title: "Process Automation",
+      title: "Project Management Fundamentals",
       description:
-        "streamline repetitive tasks like employee onboarding, approvals, and invoicing, freeing up your team to focus on higher-value work.",
-      icon: <RiFlowChart />,
+        "build a strong foundation in planning, scheduling, and execution so projects stay on track and deliver measurable value.",
+      icon: <ImFlag />,
     },
     {
-      title: "AI-Powered Chatbots",
+      title: "Agile & Scrum Training",
       description:
-        "deliver 24/7 customer support with fast, accurate, and personalized responses that feel human, improving satisfaction and reducing wait times.",
-      icon: <BsRobot />,
+        "master modern, flexible frameworks that help teams adapt quickly, respond to change, and deliver faster outcomes.",
+      icon: <DiScrum />,
     },
     {
-      title: "Workflow Integration",
+      title: "Leadership & Team Management",
       description:
-        "connect your apps, CRMs, and business platforms into one seamless ecosystem, ensuring smooth data flow and eliminating silos.",
-      icon: <AiOutlineApi />,
+        "develop the people skills needed to inspire, communicate effectively, and manage high-performing teams under pressure.",
+      icon: <TbPodium />,
     },
     {
-      title: "Predictive Analytics",
+      title: " Risk & Change Management",
       description:
-        "leverage AI to forecast customer behavior, detect market shifts early, and identify potential risks before they disrupt your business.",
-      icon: <IoStatsChart />,
+        "learn how to anticipate obstacles, minimize costly disruptions, and guide organizations smoothly through change.",
+      icon: <MdManageAccounts />,
     },
     {
-      title: "Intelligent Document Processing",
+      title: "Advanced Project Strategies",
       description:
-        "Automate the handling of contracts, forms, invoices, and reports with AI-driven data extraction and error reduction.",
-      icon: <HiOutlineDocumentSearch />,
+        "refine your expertise with proven tools, metrics, and best practices that optimize performance and give you a competitive edge.",
+      icon: <FaChessRook />,
     },
     {
-      title: "Custom AI Solutions",
+      title: "Communication & Stakeholder Management",
       description:
-        "design and deploy automation tailored to your industry, addressing unique challenges and unlocking new growth opportunities.",
-      icon: <RiRobot3Fill />,
+        "access expert guidance whenever you need it, with continuous support that evolves alongside your business.",
+      icon: <RiCustomerService2Fill />,
     },
   ];
 
@@ -75,12 +75,12 @@ function AiImplementation() {
     <div className="pageContainer w-full">
       {/* HERO */}
       <div
-        className="pageHero w-full bg-cover bg-center bg-no-repeat flex items-center mx-auto aspect-[16/9]"
+        className="pageHero w-full bg-cover bg-center bg-no-repeat flex items-center mx-auto "
         style={{
           backgroundImage: `url(${heroImage})`,
         }}
       >
-        <div className="heroBg w-full min-h-screen flex justify-center items-center bg-[#020814]/90 aspect-[16/9]">
+        <div className="heroBg w-full min-h-screen flex justify-center items-center bg-[#020814]/90">
           <motion.div
             className="pageHeroContent text-white text-center py-8 sm:w-11/12 md:max-w-9/12 lg:max-w-5/12 mx-auto"
             initial={{ opacity: 0, y: 50 }}
@@ -89,21 +89,18 @@ function AiImplementation() {
             transition={{ duration: 0.8 }}
           >
             <h1 className="text-2xl md:text-4xl lg:text-5xl font-bold mb-2 leading-tight text-center">
-              <span className="text-orange-500">Work Smarter,</span> Scale
-              Faster
+              <span className="text-orange-500">Master the Skills to</span> Lead
+              Projects with Confidence
             </h1>
             <p className="text-xl text-orange-100 mt-3">
-              Automation helps your team focus on strategy and growth while
-              intelligent systems handle the heavy lifting. From customer
-              service to data processing, AI ensures speed, accuracy, and
-              efficiency that humans alone can’t match.
+              In today’s fast-moving business world, successful projects require
+              strong leadership, clear processes, and proven skills. Our Project
+              Management Training gives your team the tools and techniques to
+              deliver on time, on budget, and with real impact.
             </p>
             <div className="buttons mt-16 w-10/12 md:w-full mx-auto flex flex-col md:flex-col lg:flex-row sm:flex-row items-center gap-4 justify-center">
-              <button className="primaryButton bg-gradient-to-r from-[#00D8FF] to-[#0A3D62] text-white hover:from-[#0A3D62] hover:to-[#00D8FF] transition-300">
-                START AUTOMATING
-              </button>
-
-              <button className="secondaryButton">BOOK A FREE DEMO</button>
+              <button className="primaryButton ">TALK TO US</button>
+              <button className="secondaryButton">ENROLL NOW</button>
             </div>
           </motion.div>
         </div>
@@ -124,7 +121,7 @@ function AiImplementation() {
                 <img
                   src={heroImage}
                   alt="Cyber Attack Readiness Consult"
-                  className="rounded-md hidden lg:block object-cover "
+                  className="rounded-md hidden lg:block object-cover shadow-lg shadow-black/40"
                 />
               </div>
             </motion.div>
@@ -137,13 +134,15 @@ function AiImplementation() {
             >
               <div className="rightContent">
                 <h2 className="text-2xl text-center lg:text-left lg:text-4xl font-semibold mb-3 ">
-                  Why AI Automation Matter
+                  Why Project Management Training
                 </h2>
-
-                <p className="text-sm lg:text-xl text-orange-100 text-center lg:text-left mb-4">
-                  Manual processes slow businesses down, introduce errors, and
-                  drain resources. AI-driven automation transforms how you
-                  operate by:
+                <p className="text-lg text-blue-50 leading-relaxed text-justify hyphens-auto mb-8">
+                  Many projects fail due to poor planning, weak communication,
+                  or lack of accountability. The right training ensures your
+                  teams can:
+                </p>
+                <p className="text-xl text-orange-100 mb-4">
+                  Project Management Training helps you:
                 </p>
                 <div className="benefits">
                   {benefits.map((item, idx) => (
@@ -151,7 +150,7 @@ function AiImplementation() {
                       <div className="icon text-orange-500">
                         <IoIosCheckmarkCircle />
                       </div>
-                      <p className="text-blue-100 text-sm">{item.item}</p>
+                      <p className="text-blue-100">{item.item}</p>
                     </div>
                   ))}
                 </div>
@@ -167,15 +166,15 @@ function AiImplementation() {
           <div className="processContent w-full justify-center flex flex-col gap-12 mx-auto">
             <div className="titleContent mx-auto">
               <h2 className="text-2xl text-center lg:text-4xl font-semibold mb-3 ">
-                Our AI Automation Services
+                Our Training Programs
               </h2>
               <p className="text-orange-100 text-center lg:w-7/12 mx-auto">
-                We don’t just set up tools—we design smart, tailored automation
-                systems that align with your goals:
+                We go beyond theory—our sessions are interactive, practical, and
+                tailored to your industry:
               </p>
             </div>
 
-            <div className="cards w-full mx-auto lg:mt-12">
+            <div className="cards w-full mx-auto lg:mt-12 ">
               <div className="cardContents w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
                 {services.map((serviceItem, idx) => (
                   <motion.div
@@ -187,10 +186,10 @@ function AiImplementation() {
                     transition={{ duration: 0.6, delay: idx * 0.15 }}
                   >
                     <div
-                      className="card bg-[#0A3D62] rounded-md min-h-[300px] 
+                      className="card bg-[#99420C] rounded-md  min-h-[350px]
                         transition-all duration-500 
                         hover:[transform:rotateY(-10deg)] 
-                        hover:shadow-lg hover:bg-[#0A3D62]/50 
+                        hover:shadow-lg hover:bg-[#99420C]/50 
                         hover:shadow-black/30 
                         [transform-style:preserve-3d]"
                     >
@@ -220,12 +219,13 @@ function AiImplementation() {
               transition={{ duration: 0.6, delay: 0.3 }}
             >
               <div className="ctaContent flex flex-col justify-center text-center mx-auto ">
-                <div className="font-bold text-2xl">Start Automating Today</div>
+                <div className="font-bold text-2xl">Ready to Upgrade</div>
                 {/* <p className="text-center text-blue-100">
-                  Start Automating Today
+                  Don't wait for a breach to test your defenses. Contact us
+                  Today.
                 </p> */}
-                <button className="primaryButton mt-4 !w-[300px]  bg-gradient-to-r from-[#00D8FF] to-[#0A3D62] text-white hover:from-[#0A3D62] hover:to-[#00D8FF] transition-300">
-                  GET STARTED
+                <button className="mt-3 bg-orange-500 px-3 py-3 rounded-sm  mx-auto text-lg w-[300px] hover:bg-orange-600 transition-300">
+                  ENROLL TODAY
                 </button>
               </div>
             </motion.div>
@@ -236,4 +236,4 @@ function AiImplementation() {
   );
 }
 
-export default AiImplementation;
+export default ProjectManagementTraining;

@@ -15,6 +15,8 @@ import Home from "./pages/Home";
 import CyberAttackReadiness from "./pages/CyberAttackReadiness";
 import CyberSecurityConsulting from "./pages/CyberSecurityConsulting";
 import AiImplementation from "./pages/AiImplementation";
+import ItConsulting from "./pages/ItConsulting";
+import ProjectManagementTraining from "./pages/ProjectManagementTraining";
 
 function App() {
   const [isContactModalOpen, setIsContactModalOpen] = useState(false);
@@ -45,6 +47,11 @@ function App() {
         <Route
           path="/services/ai-implementation"
           element={<AiImplementation />}
+        />
+        <Route path="/services/it-consulting" element={<ItConsulting />} />
+        <Route
+          path="/services/project-management-training"
+          element={<ProjectManagementTraining />}
         />
       </Routes>
       <Footer />

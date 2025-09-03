@@ -1,73 +1,78 @@
 import React from "react";
 import { motion } from "motion/react";
-import heroImage from "/public/aiAutomationPageHero.jpeg";
+import heroImage from "/public/itconsultingPageHero.jpeg";
 import { IoIosCheckmarkCircle } from "react-icons/io";
-import { RiFlowChart } from "react-icons/ri";
+import { TbSitemapFilled } from "react-icons/tb";
+import { IoCloudUpload } from "react-icons/io5";
+import { MdSecurity } from "react-icons/md";
 
 import { RiRobot3Fill } from "react-icons/ri";
+import { GrTechnology } from "react-icons/gr";
+import { BiSupport } from "react-icons/bi";
 
 import { IoStatsChart } from "react-icons/io5";
 
 import { HiOutlineDocumentSearch } from "react-icons/hi";
+import { FaServer } from "react-icons/fa";
 
 import { AiOutlineApi } from "react-icons/ai";
 
 import { BsRobot } from "react-icons/bs";
 
-function AiImplementation() {
+function ItConsulting() {
   const benefits = [
     {
-      item: "Boosting Efficiency – eliminate repetitive tasks and free your team for higher-value work",
+      item: "Driving Growth – align technology with business goals to unlock new opportunities",
     },
     {
-      item: "Improving Accuracy – reduce costly errors with intelligent decision-making",
+      item: " Strengthening Security – protect your data, systems, and reputation from evolving threats",
     },
     {
-      item: "Scaling Operations – automate workflows to handle more customers, data, and tasks without extra headcount",
+      item: "Enabling Scalability – modernize infrastructure and cloud systems to grow without limits",
     },
     {
-      item: "Unlocking Insights – turn data into actionable strategies using AI-powered analytics",
+      item: "Improving Efficiency – optimize processes, cut waste, and maximize performance",
     },
     {
-      item: "Saving Time & Costs – faster processes mean leaner operations and bigger savings",
+      item: "Providing Expertise – access specialists who guide you through complex IT challenges",
     },
   ];
   const services = [
     {
-      title: "Process Automation",
+      title: "IT Strategy & Roadmapping",
       description:
-        "streamline repetitive tasks like employee onboarding, approvals, and invoicing, freeing up your team to focus on higher-value work.",
-      icon: <RiFlowChart />,
+        "align your technology investments with long-term business goals, ensuring every IT decision supports growth, agility, and future readiness.",
+      icon: <TbSitemapFilled />,
     },
     {
-      title: "AI-Powered Chatbots",
+      title: "Cloud Consulting & Migration",
       description:
-        "deliver 24/7 customer support with fast, accurate, and personalized responses that feel human, improving satisfaction and reducing wait times.",
-      icon: <BsRobot />,
+        "move to secure, scalable cloud solutions that cut overhead, increase flexibility, and empower your teams to work from anywhere.",
+      icon: <IoCloudUpload />,
     },
     {
-      title: "Workflow Integration",
+      title: "Infrastructure Optimization",
       description:
-        "connect your apps, CRMs, and business platforms into one seamless ecosystem, ensuring smooth data flow and eliminating silos.",
-      icon: <AiOutlineApi />,
+        "streamline networks, servers, and systems to maximize performance, reduce downtime, and create a stable foundation for innovation.",
+      icon: <FaServer />,
     },
     {
-      title: "Predictive Analytics",
+      title: "Cybersecurity Consulting",
       description:
-        "leverage AI to forecast customer behavior, detect market shifts early, and identify potential risks before they disrupt your business.",
-      icon: <IoStatsChart />,
+        "safeguard your IT environment with proactive defense strategies that protect sensitive data, ensure compliance, and reduce risk.",
+      icon: <MdSecurity />,
     },
     {
-      title: "Intelligent Document Processing",
+      title: "Digital Transformation",
       description:
-        "Automate the handling of contracts, forms, invoices, and reports with AI-driven data extraction and error reduction.",
-      icon: <HiOutlineDocumentSearch />,
+        "modernize outdated systems and integrate new technologies to boost agility, efficiency, and competitive advantage.",
+      icon: <GrTechnology />,
     },
     {
-      title: "Custom AI Solutions",
+      title: "Ongoing IT Support & Advisory",
       description:
-        "design and deploy automation tailored to your industry, addressing unique challenges and unlocking new growth opportunities.",
-      icon: <RiRobot3Fill />,
+        "access expert guidance whenever you need it, with continuous support that evolves alongside your business.",
+      icon: <BiSupport />,
     },
   ];
 
@@ -89,21 +94,23 @@ function AiImplementation() {
             transition={{ duration: 0.8 }}
           >
             <h1 className="text-2xl md:text-4xl lg:text-5xl font-bold mb-2 leading-tight text-center">
-              <span className="text-orange-500">Work Smarter,</span> Scale
-              Faster
+              <span className="text-orange-500">
+                Shift IT from <br />
+              </span>{" "}
+              Expense to Advantage
             </h1>
-            <p className="text-xl text-orange-100 mt-3">
-              Automation helps your team focus on strategy and growth while
-              intelligent systems handle the heavy lifting. From customer
-              service to data processing, AI ensures speed, accuracy, and
-              efficiency that humans alone can’t match.
+            <p className="text-xl text-blue-100 mt-3">
+              Technology shouldn’t just keep the lights on — it should power
+              innovation, scalability, and efficiency. Our IT Consulting
+              services align your tech strategy with your business goals,
+              ensuring you’re not just keeping up, but staying ahead.
             </p>
             <div className="buttons mt-16 w-10/12 md:w-full mx-auto flex flex-col md:flex-col lg:flex-row sm:flex-row items-center gap-4 justify-center">
               <button className="primaryButton bg-gradient-to-r from-[#00D8FF] to-[#0A3D62] text-white hover:from-[#0A3D62] hover:to-[#00D8FF] transition-300">
-                START AUTOMATING
+                TALK TO AN EXPERT
               </button>
 
-              <button className="secondaryButton">BOOK A FREE DEMO</button>
+              <button className="secondaryButton">START YOUR IT UPGRADE</button>
             </div>
           </motion.div>
         </div>
@@ -137,13 +144,13 @@ function AiImplementation() {
             >
               <div className="rightContent">
                 <h2 className="text-2xl text-center lg:text-left lg:text-4xl font-semibold mb-3 ">
-                  Why AI Automation Matter
+                  Why IT Consulting Matters{" "}
                 </h2>
 
-                <p className="text-sm lg:text-xl text-orange-100 text-center lg:text-left mb-4">
-                  Manual processes slow businesses down, introduce errors, and
-                  drain resources. AI-driven automation transforms how you
-                  operate by:
+                <p className="text-sm lg:text-xl text-blue-100 text-center lg:text-left mb-4">
+                  Too often, businesses treat IT as just a support
+                  function—reactive, costly, and disconnected from strategy. The
+                  right IT consulting changes that by:
                 </p>
                 <div className="benefits">
                   {benefits.map((item, idx) => (
@@ -151,7 +158,7 @@ function AiImplementation() {
                       <div className="icon text-orange-500">
                         <IoIosCheckmarkCircle />
                       </div>
-                      <p className="text-blue-100 text-sm">{item.item}</p>
+                      <p className="text-blue-100 text-base">{item.item}</p>
                     </div>
                   ))}
                 </div>
@@ -162,16 +169,16 @@ function AiImplementation() {
       </div>
 
       {/* PROCESS */}
-      <div className="processSection w-full bg-[#020814] text-white py-4 lg:py-16">
-        <div className="processWrapper w-11/12 px-4 lg:px-16 mx-auto">
+      <div className="processSection w-full bg-[#020814] text-white py-4 lg:py-16 flex justify-center">
+        <div className="processWrapper w-11/12 px-4 lg:px-16 flex justify-center mx-auto">
           <div className="processContent w-full justify-center flex flex-col gap-12 mx-auto">
             <div className="titleContent mx-auto">
               <h2 className="text-2xl text-center lg:text-4xl font-semibold mb-3 ">
-                Our AI Automation Services
+                Our IT Consulting Services{" "}
               </h2>
               <p className="text-orange-100 text-center lg:w-7/12 mx-auto">
-                We don’t just set up tools—we design smart, tailored automation
-                systems that align with your goals:
+                Comprehensive IT solutions designed to optimize, secure, and
+                future-proof your business.
               </p>
             </div>
 
@@ -201,7 +208,7 @@ function AiImplementation() {
                         <h3 className="text-xl lg:text-2xl lg:px-8 font-bold text-center mb-4">
                           {serviceItem.title}
                         </h3>
-                        <p className=" text-center text-orange-100">
+                        <p className=" text-center text-orange-100 ">
                           {serviceItem.description}
                         </p>
                       </div>
@@ -213,19 +220,19 @@ function AiImplementation() {
 
             {/* CTA */}
             <motion.div
-              className="cta py-16 flex flex-col justify-center w-full mx-auto"
+              className="cta py-16 w-11/12  flex flex-col justify-center  mx-auto"
               initial={{ opacity: 0, scale: 0.9 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.3 }}
             >
-              <div className="ctaContent flex flex-col justify-center text-center mx-auto ">
-                <div className="font-bold text-2xl">Start Automating Today</div>
+              <div className="ctaContent w-full flex flex-col items-center justify-center text-center mx-auto">
+                <div className="font-bold text-2xl">Optimize Your IT Today</div>
                 {/* <p className="text-center text-blue-100">
-                  Start Automating Today
-                </p> */}
-                <button className="primaryButton mt-4 !w-[300px]  bg-gradient-to-r from-[#00D8FF] to-[#0A3D62] text-white hover:from-[#0A3D62] hover:to-[#00D8FF] transition-300">
-                  GET STARTED
+    Start Automating Today
+  </p> */}
+                <button className="primaryButton uppercase mt-4 w-[300px] bg-gradient-to-r from-[#00D8FF] to-[#0A3D62] text-white hover:from-[#0A3D62] hover:to-[#00D8FF] transition-all duration-300">
+                  Schedule Consultation
                 </button>
               </div>
             </motion.div>
@@ -236,4 +243,4 @@ function AiImplementation() {
   );
 }
 
-export default AiImplementation;
+export default ItConsulting;

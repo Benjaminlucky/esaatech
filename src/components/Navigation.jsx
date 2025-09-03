@@ -4,7 +4,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { FaBars, FaTimes } from "react-icons/fa";
 import { AnimatePresence, motion } from "motion/react";
 import ContactModal from "./ContactModal";
-import logo from "/esaaconsulting.png";
+import logo from "/esaaconsulting.svg";
 
 const Navigation = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -99,7 +99,7 @@ const Navigation = () => {
             className="navigation__logo cursor-pointer"
             onClick={() => handleNavClick("home")}
           >
-            <img src={logo} alt="Logo" className="h-10" />
+            <img src={logo} alt="Logo" className="w-64" />
           </div>
 
           {/* Desktop Menu */}

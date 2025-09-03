@@ -2,6 +2,7 @@ import React from "react";
 import { motion } from "framer-motion";
 import { IoIosCheckmarkCircle } from "react-icons/io";
 import "./AdditionalServices.css";
+import { Link } from "react-router-dom";
 
 const AdditionalServices = () => {
   const additionalServices = [
@@ -9,6 +10,7 @@ const AdditionalServices = () => {
       id: 1,
       title: "IT Consulting",
       img: "../../../itconsultingservice.jpeg",
+      link: "/services/it-consulting",
       description:
         "Strategic IT planning and infrastructure optimization for your business needs.",
     },
@@ -16,6 +18,7 @@ const AdditionalServices = () => {
       id: 2,
       title: "Project Management Training",
       img: "../../../projectmgtservice.jpg",
+      link: "/services/project-management-training",
       description:
         "Comprehensive training programs to enhance your team's project management skills.",
     },
@@ -161,8 +164,9 @@ const AdditionalServices = () => {
                 </ul>
 
                 {/* Button */}
-                <button
-                  className="mt-6 text-white font-semibold py-2 px-4 rounded-lg transition backdrop-blur-sm hover:scale-105"
+                <Link
+                  to={service.link}
+                  className="mt-6 text-white text-center font-semibold py-2 px-4 rounded-lg transition backdrop-blur-sm hover:scale-105"
                   style={{
                     backgroundColor: "rgba(255, 255, 255, 0.12)",
                     boxShadow: "0 4px 20px rgba(0, 0, 0, 0.25)",
@@ -171,7 +175,7 @@ const AdditionalServices = () => {
                   }}
                 >
                   Learn More
-                </button>
+                </Link>
               </div>
             </div>
           </motion.div>
