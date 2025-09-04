@@ -26,6 +26,7 @@ const AdditionalServices = () => {
       id: 3,
       title: "DevOps Courses",
       img: "../../../devopsService.jpeg",
+      link: "/services/devops-courses",
       description:
         "Modern DevOps practices and tools training for improved development workflows.",
     },

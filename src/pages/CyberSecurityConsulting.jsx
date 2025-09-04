@@ -185,7 +185,7 @@ function CyberSecurityConsulting() {
                     transition={{ duration: 0.6, delay: idx * 0.15 }}
                   >
                     <div
-                      className="card bg-[#99420C] rounded-md 
+                      className="card bg-[#99420C] rounded-md min-h-[350px]
                         transition-all duration-500 
                         hover:[transform:rotateY(-10deg)] 
                         hover:shadow-lg hover:bg-[#99420C]/50 

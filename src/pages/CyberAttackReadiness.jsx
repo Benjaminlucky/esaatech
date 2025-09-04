@@ -154,7 +154,7 @@ function CyberAttackReadiness() {
                     transition={{ duration: 0.6, delay: idx * 0.15 }}
                   >
                     <div
-                      className="card bg-blue-600 rounded-md 
+                      className="card bg-blue-600 rounded-md min-h-[350px]
                         transition-all duration-500 
                         hover:[transform:rotateY(-10deg)] 
                         hover:shadow-lg hover:bg-blue-600/50 
