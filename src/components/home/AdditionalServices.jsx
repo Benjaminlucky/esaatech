@@ -34,6 +34,7 @@ const AdditionalServices = () => {
       id: 4,
       title: "Digital Transformation",
       img: "../../../digitalTransformation.jpg",
+      link: "/services/digital-transformation",
       description:
         "End-to-end digital transformation consulting to modernize your business processes.",
     },
@@ -41,6 +42,7 @@ const AdditionalServices = () => {
       id: 5,
       title: "Cloud Migration",
       img: "../../../cloudMigrationService.jpeg",
+      link: "/services/cloud-migration",
       description:
         "Seamless cloud migration strategies and implementation support.",
     },
@@ -48,6 +50,7 @@ const AdditionalServices = () => {
       id: 6,
       title: "Website Design",
       img: "../../../websiteDesignService.jpeg",
+      link: "/services/website-design",
       description:
         "Modern, responsive website design and development for businesses of all sizes.",
     },

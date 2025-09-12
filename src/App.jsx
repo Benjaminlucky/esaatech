@@ -18,6 +18,9 @@ import AiImplementation from "./pages/AiImplementation";
 import ItConsulting from "./pages/ItConsulting";
 import ProjectManagementTraining from "./pages/ProjectManagementTraining";
 import DevOpsCourses from "./pages/DevOpsCourses";
+import DigitalTransformation from "./pages/DigitalTransformation";
+import CloudMigration from "./pages/CloudMigration";
+import WebsiteDesign from "./pages/WebsiteDesign";
 
 function App() {
   const [isContactModalOpen, setIsContactModalOpen] = useState(false);
@@ -55,6 +58,12 @@ function App() {
           element={<ProjectManagementTraining />}
         />
         <Route path="/services/devops-courses" element={<DevOpsCourses />} />
+        <Route
+          path="/services/digital-transformation"
+          element={<DigitalTransformation />}
+        />
+        <Route path="/services/cloud-migration" element={<CloudMigration />} />
+        <Route path="/services/website-design" element={<WebsiteDesign />} />
       </Routes>
       <Footer />
     </Router>
